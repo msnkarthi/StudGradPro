@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudGradPro.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,32 @@ namespace StudGradPro
     /// </summary>
     public partial class MainWindow : Window
     {
+        public UniversityDataManager dataManager { private set; get; }
+        public List<Student> Students;
+
         public MainWindow()
         {
+            
+
             InitializeComponent();
+
+            dataManager = new UniversityDataManager();
+            Students = dataManager.Students.ToList();
+        }
+
+        private void btnLoadStudents_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAddStudent_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnUpdateGrade_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
