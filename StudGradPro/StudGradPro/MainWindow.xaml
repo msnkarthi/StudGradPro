@@ -5,38 +5,129 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudGradPro"
         mc:Ignorable="d"
-        Title="Student Grading System" Height="350" Width="525">
-    <Grid>
-        
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <Label Grid.Row="0" HorizontalAlignment="Center">Student Grading System</Label>
-            <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button x:Name="btnLoadStudents" Click="btnLoadStudents_Click">Load Student Record</Button>
-                <Button x:Name="btnAddStudent" Click="btnAddStudent_Click">Add Student</Button>
-                <Button x:Name="btnUpdateGrade" Click="btnUpdateGrade_Click">Grade Student</Button>
+        Title="Student Grading System" Height="350" Width="525" WindowState="Maximized" WindowStyle="SingleBorderWindow">
+    <Window.Resources>
+        <DataTemplate x:Key="myFirstItemTemplate">
+            <StackPanel>
+                <TextBlock Text="{Binding Name}" />
             </StackPanel>
-            <DataGrid ItemsSource="{Binding Students}" Grid.Row="2"/>
-            <!--<ListView Margin="10" Name="lvUsers" Grid.Row="2">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Age" Width="50" DisplayMemberBinding="{Binding Age}" />
-                    <GridViewColumn Header="Mail" Width="150">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Mail}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>-->
+        </DataTemplate>
+        <DataTemplate x:Key="StudentTemplate" DataType="local:Student">
+            <StackPanel>
+
+
+                <Label>Student Name</Label>
+                <TextBlock Text="{Binding Path=FirstName}" />
+                <TextBlock Text="{Binding Path=LastName}"/>
+                
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid Margin="5" Background="DarkGray">
+            <Grid Background="LightBlue">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" HorizontalAlignment="Center" FontSize="20">Student Grading System</Label>
+                <Grid Grid.Row="1" Margin="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Label>Select Course</Label>
+                        <ComboBox
+            HorizontalAlignment="Left"
+            Margin="1"
+            VerticalAlignment="Center"
+            Width="100"
+            Loaded="cmbCourse_Loaded"
+            SelectionChanged="cmbCourse_SelectionChanged" x:Name="cmbCourse">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Name}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Label>Sort By</Label>
+                        <ComboBox
+            HorizontalAlignment="Left"
+            Margin="1"
+            VerticalAlignment="Center"
+            Width="100"
+            Loaded="cmbSortBy_Loaded"
+            SelectionChanged="cmbSortBy_SelectionChanged" x:Name="cmbSortBy"/>
+
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Label>Search By</Label>
+                        <ComboBox
+            HorizontalAlignment="Left"
+            Margin="1"
+            VerticalAlignment="Center"
+            Width="100"
+            Loaded="cmbSearchBy_Loaded"
+            SelectionChanged="cmbSearchBy_SelectionChanged" x:Name="cmbSearchBy"/>
+                        <TextBox x:Name="searchText" Width="50"></TextBox>
+                        <Button x:Name="btnSearch" Width="50" Click="btnSearch_Click">Search</Button>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="3" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60*"></RowDefinition>
+                        <RowDefinition Height="40*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <!--<Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60*"></ColumnDefinition>
+                        <ColumnDefinition Width="40*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>-->
+                    <DataGrid x:Name="gridStudents" IsReadOnly="True" ItemsSource="{Binding Students}" MouseDoubleClick="gridStudents_MouseDoubleClick" Grid.Row="0"  Sorting="DataGrid_Sorting" AutoGenerateColumns="True" Loaded="DataGrid_Loaded"/>
+                    <ContentControl Grid.Row="1" Background="LightGray" Margin="2" BorderBrush="Black" BorderThickness=".5" x:Name="controlStudent" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35">
+                                    
+                                </RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="2">
+
+
+
+
+                                <TextBlock Text="Student Id" Width="120" FontSize="20"></TextBlock>
+                                <TextBlock Width="50" FontSize="25" Text="{Binding Path=Id}"></TextBlock>
+
+                                <TextBlock FontSize="20" Width="150" Text="Student Name"></TextBlock>
+                                <TextBlock FontSize="25" Width="Auto" Text="{Binding Path=FirstName}"/>
+                                <Label> </Label>
+                                <TextBlock FontSize="25" Width="Auto" Text="{Binding Path=LastName}"/>
+
+
+
+                            </StackPanel>
+                            <ListView Grid.Row="1">
+
+                            </ListView>
+                        </Grid>
+
+                    </ContentControl>
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

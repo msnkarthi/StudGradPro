@@ -10,6 +10,7 @@ namespace StudGradPro.Data
     {
         public Student[] Students { private set; get; }
         public Course[] AvailableCourses { private set; get; }
+        
 
         public UniversityDataManager()
         {
@@ -38,6 +39,30 @@ namespace StudGradPro.Data
 
             StudentDataParser studentDataParser = new StudentDataParser();
             Students = studentDataParser.GetStudents();
+        }
+
+        public Course GetCourseById(int courseId)
+        {
+            foreach (Course course in AvailableCourses)
+            {
+                if (courseId == course.Id)
+                {
+                    return course;
+                }
+            }
+            return null;
+        }
+
+        public StudentByCourse[] StudentsByCourse(List<Student> Students, int courseId)
+        {
+            List<StudentByCourse> studByCourses = new List<StudentByCourse>();
+
+            foreach(Student student in Students)
+            {
+                studByCourses.Add(new StudentByCourse(student, courseId));
+            }
+
+            return studByCourses.ToArray();
         }
     }
 }

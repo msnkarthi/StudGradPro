@@ -24,6 +24,16 @@ namespace StudGradPro
         public string Status { set; get; }
         public Course[] CoursesEnrolled;
 
+        public static List<string> SortableColumns = new List<string>()
+        {
+            "Id", "FirstName", "LastName", "Status"
+        };
+
+        public static List<string> SearchableColumns = new List<string>()
+        {
+            "Id", "FirstName", "LastName", "Status"
+        };
+
         public Student()
         {
             GradeItem item1 = new GradeItem { Id = 501, Item = "Assignment1", WeightPerc = 20.0, Feedback = "NA", Grade = 0, CourseId = 101 };

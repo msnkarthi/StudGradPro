@@ -21,7 +21,7 @@ namespace StudGradPro
     /// </summary>
     public partial class MainWindow : Window
     {
-        public UniversityDataManager dataManager { private set; get; }
+        public static UniversityDataManager dataManager { private set; get; }
         public List<Student> Students;
 
         public MainWindow()
@@ -47,6 +47,81 @@ namespace StudGradPro
         private void btnUpdateGrade_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void DataGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            var grid = sender as DataGrid;
+            grid.ItemsSource = Students;
+        }
+
+        private void DataGrid_Sorting(object sender, DataGridSortingEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void cmbSortBy_Loaded(object sender, RoutedEventArgs e)
+        {
+            cmbSortBy.ItemsSource = Student.SortableColumns;
+        }
+
+        private void cmbSortBy_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedColumn = (sender as ComboBox).SelectedItem as string;
+        }
+
+        private void cmbSearchBy_Loaded(object sender, RoutedEventArgs e)
+        {
+            cmbSearchBy.ItemsSource = Student.SearchableColumns;
+        }
+
+        private void cmbSearchBy_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedColumn = (sender as ComboBox).SelectedItem as string;
+        }
+
+        private void cmbCourse_Loaded(object sender, RoutedEventArgs e)
+        {
+            cmbCourse.ItemsSource = dataManager.AvailableCourses;
+
+            
+        }
+
+        private void cmbCourse_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Course selectedCourse = (sender as ComboBox).SelectedItem as Course;
+
+            gridStudents.ItemsSource = dataManager.StudentsByCourse(Students, selectedCourse.Id);
+
+            cmbSortBy.ItemsSource = StudentByCourse.SortableColumns;
+            cmbSearchBy.ItemsSource = StudentByCourse.SearchableColumns;
+
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void gridStudents_Selected(object sender, RoutedEventArgs e)
+        {
+            //Student[] selectedStudent = (sender as DataGrid).SelectedItem as Student[];
+
+            //controlStudent.DataContext = selectedStudent[0];
+        }
+
+        private void gridStudents_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var selectedStudent = gridStudents.SelectedItem as Student;
+            controlStudent.DataContext = selectedStudent;
+
+            if (selectedStudent == null)
+            {
+                var selectedStudentByCourse = gridStudents.SelectedItem as StudentByCourse;
+                controlStudent.DataContext = selectedStudentByCourse;
+            }
+
+            
         }
     }
 }
