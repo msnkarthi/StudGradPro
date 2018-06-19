@@ -13,5 +13,10 @@ namespace StudGradPro
         public GradeItem[] Plan { get; set; }
         public string ProfessorFullName { get; set; }
         public double FinalGrade { set; get; }
+
+        public override string ToString()
+        {
+            return string.Format("Professor: {0}, Course: {1}", ProfessorFullName, Name);
+        }
     }
 }

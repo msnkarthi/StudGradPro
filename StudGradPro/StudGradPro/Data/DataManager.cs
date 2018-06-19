@@ -10,7 +10,7 @@ namespace StudGradPro.Data
     {
         public Student[] Students { private set; get; }
         public Course[] AvailableCourses { private set; get; }
-        
+        StudentDataParser studentDataParser = new StudentDataParser();
 
         public UniversityDataManager()
         {
@@ -37,7 +37,17 @@ namespace StudGradPro.Data
             //Student student1 = new Student { Id = 10001, LastName = "XYZ", FirstName = "AB", Address = "Stree1", Gender = "ABC", EMail = "abc@def.com", Status = "Active", CoursesEnrolled = new Course[2]{ course1, course2 } };
             //Student student2 = new Student { Id = 10002, LastName = "XYZ", FirstName = "AB", Address = "Stree1", Gender = "ABC", EMail = "abc@def.com", Status = "Active", CoursesEnrolled = new Course[2] { course1, course2 } };
 
-            StudentDataParser studentDataParser = new StudentDataParser();
+            
+            Students = studentDataParser.GetStudents();
+        }
+
+        public void StoreStudents()
+        {
+            studentDataParser.UpdateStudents(Students);
+        }
+
+        public void RetrieveStudents()
+        {
             Students = studentDataParser.GetStudents();
         }
 
@@ -63,6 +73,22 @@ namespace StudGradPro.Data
             }
 
             return studByCourses.ToArray();
+        }
+
+        public bool UpdateStudent(StudentByCourse studentByCourse)
+        {
+
+            var student = Students.Where(stud => stud.Id == studentByCourse.Id).Single();
+
+            if (student == null)
+            {
+                return false;
+            }
+
+            //ActiveCourse = student.CoursesEnrolled.Where(item => item.Id == courseId).Single();
+
+            return true;
+
         }
     }
 }

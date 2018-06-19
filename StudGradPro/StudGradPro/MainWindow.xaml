@@ -88,41 +88,73 @@
                 </Grid>
                 <Grid Grid.Row="3" >
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="60*"></RowDefinition>
-                        <RowDefinition Height="40*"></RowDefinition>
+                        <RowDefinition Height="50*"></RowDefinition>
+                        <RowDefinition Height="50*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <!--<Grid.ColumnDefinitions>
                         <ColumnDefinition Width="60*"></ColumnDefinition>
                         <ColumnDefinition Width="40*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>-->
+                    
                     <DataGrid x:Name="gridStudents" IsReadOnly="True" ItemsSource="{Binding Students}" MouseDoubleClick="gridStudents_MouseDoubleClick" Grid.Row="0"  Sorting="DataGrid_Sorting" AutoGenerateColumns="True" Loaded="DataGrid_Loaded"/>
                     <ContentControl Grid.Row="1" Background="LightGray" Margin="2" BorderBrush="Black" BorderThickness=".5" x:Name="controlStudent" >
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="35">
-                                    
+
                                 </RowDefinition>
+                                <RowDefinition Height="25"></RowDefinition>
                                 <RowDefinition></RowDefinition>
+                                <RowDefinition Height="25"></RowDefinition>
                             </Grid.RowDefinitions>
                             <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="2">
 
+                                <TextBlock x:Name="courseDisplay"  FontSize="20" Width="300" Foreground="Green" Text="{Binding Path=ActiveCourse.Name}"/>
+                                <TextBlock VerticalAlignment="Bottom" Text="Student Id" Width="120" FontSize="20"></TextBlock>
+                                <TextBlock Width="50" FontSize="25" Foreground="Green" Text="{Binding Path=Id}"></TextBlock>
 
-
-
-                                <TextBlock Text="Student Id" Width="120" FontSize="20"></TextBlock>
-                                <TextBlock Width="50" FontSize="25" Text="{Binding Path=Id}"></TextBlock>
-
-                                <TextBlock FontSize="20" Width="150" Text="Student Name"></TextBlock>
-                                <TextBlock FontSize="25" Width="Auto" Text="{Binding Path=FirstName}"/>
-                                <Label> </Label>
-                                <TextBlock FontSize="25" Width="Auto" Text="{Binding Path=LastName}"/>
+                                <TextBlock VerticalAlignment="Bottom" FontSize="20" Width="150" Text="Student Name"></TextBlock>
+                                <TextBlock FontSize="25" Width="Auto" Foreground="Green" Text="{Binding Path=FirstName}"/>
+                                <Label></Label>
+                                <TextBlock FontSize="25" Width="Auto" Foreground="Green" Text="{Binding Path=LastName}"/>
 
 
 
                             </StackPanel>
-                            <ListView Grid.Row="1">
-
+                            <Grid Grid.Row="1" Background="LightGray">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                    <ColumnDefinition Width="400"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock VerticalAlignment="Center" Text="Task" Grid.Column="0"/>
+                                <TextBlock VerticalAlignment="Center" Text="Weight(Perc)" Grid.Column="1" />
+                                <TextBlock VerticalAlignment="Center" Text="Grade" Grid.Column="2"></TextBlock>
+                                <TextBlock VerticalAlignment="Center" Text="Feedback" Grid.Column="3"></TextBlock>
+                            </Grid>
+                        <ListView Grid.Row="2" x:Name="gradeItemsView" ItemsSource="{Binding ActiveCourse.Plan}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="400"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding Item}" Grid.Column="0"/>
+                                            <TextBlock Text="{Binding WeightPerc}" Grid.Column="1" />
+                                            <TextBox Text="{Binding Grade, Mode=TwoWay}" Grid.Column="2"></TextBox>
+                                            <TextBox Text="{Binding Feedback, Mode=TwoWay}" Grid.Column="3"></TextBox>
+                                            
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
                             </ListView>
+                            <StackPanel Grid.Row="3" HorizontalAlignment="Center" Margin="2">
+                                <Button x:Name="btnUpdateDB" Click="btnUpdateDB_Click" Width="120">Update Data</Button>
+                            </StackPanel>
                         </Grid>
 
                     </ContentControl>

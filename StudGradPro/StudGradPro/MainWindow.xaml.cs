@@ -23,36 +23,18 @@ namespace StudGradPro
     {
         public static UniversityDataManager dataManager { private set; get; }
         public List<Student> Students;
+        Course selectedCourse = null;
 
         public MainWindow()
         {
-            
-
             InitializeComponent();
-
             dataManager = new UniversityDataManager();
             Students = dataManager.Students.ToList();
         }
 
-        private void btnLoadStudents_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnAddStudent_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnUpdateGrade_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            var grid = sender as DataGrid;
-            grid.ItemsSource = Students;
+            gridStudents.ItemsSource = Students;
         }
 
         private void DataGrid_Sorting(object sender, DataGridSortingEventArgs e)
@@ -83,19 +65,15 @@ namespace StudGradPro
         private void cmbCourse_Loaded(object sender, RoutedEventArgs e)
         {
             cmbCourse.ItemsSource = dataManager.AvailableCourses;
-
-            
         }
 
         private void cmbCourse_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Course selectedCourse = (sender as ComboBox).SelectedItem as Course;
-
+            selectedCourse = (sender as ComboBox).SelectedItem as Course;
             gridStudents.ItemsSource = dataManager.StudentsByCourse(Students, selectedCourse.Id);
 
             cmbSortBy.ItemsSource = StudentByCourse.SortableColumns;
             cmbSearchBy.ItemsSource = StudentByCourse.SearchableColumns;
-
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
@@ -120,8 +98,18 @@ namespace StudGradPro
                 var selectedStudentByCourse = gridStudents.SelectedItem as StudentByCourse;
                 controlStudent.DataContext = selectedStudentByCourse;
             }
+        }
 
-            
+        private void btnUpdateDB_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedCourse != null)
+            {
+                gridStudents.ItemsSource = dataManager.StudentsByCourse(Students, selectedCourse.Id);
+
+                cmbSortBy.ItemsSource = StudentByCourse.SortableColumns;
+                cmbSearchBy.ItemsSource = StudentByCourse.SearchableColumns;
+            }
+            dataManager.StoreStudents();
         }
     }
 }

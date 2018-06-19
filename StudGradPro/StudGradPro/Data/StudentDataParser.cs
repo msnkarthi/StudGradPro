@@ -19,5 +19,13 @@ namespace StudGradPro.Data
                 return students;
             }
         }
+
+        public void UpdateStudents(Student[] students)
+        {
+            using (StreamWriter w = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + @"data\students.json"))
+            {
+                w.Write(JsonConvert.SerializeObject(students));
+            }
+        }
     }
 }
