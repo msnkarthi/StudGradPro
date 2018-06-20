@@ -75,12 +75,14 @@
             SelectionChanged="cmbSearchBy_SelectionChanged" x:Name="cmbSearchBy"/>
                         <TextBox x:Name="searchText" Width="50"></TextBox>
                         <Button x:Name="btnSearch" Width="50" Click="btnSearch_Click">Search</Button>
+                        <Button x:Name="btnSearchClear" Click="btnClear_Click" Width="50">Clear</Button>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Orientation="Horizontal">
                         <Label>Filter Grade Range</Label>
                             <TextBox x:Name="filterMin" Width="20" Margin="2">70</TextBox>
                             <TextBox x:Name="filterMax" Width="20" Margin="2">90</TextBox>
                         <Button x:Name="btnFilter" Width="50" Click="btnFilter_Click">Filter</Button>
+                        <Button x:Name="btnFilterClear" Click="btnClear_Click" Width="50">Clear</Button>
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="3" >

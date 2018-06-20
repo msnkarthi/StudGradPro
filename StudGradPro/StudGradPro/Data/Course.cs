@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudGradPro
+namespace StudGradPro.Data
 {
     public class Course
     {

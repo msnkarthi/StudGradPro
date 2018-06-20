@@ -1,4 +1,5 @@
-﻿using StudGradPro.Data;
+﻿using StudGradPro.Algorithms;
+using StudGradPro.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,12 +25,22 @@ namespace StudGradPro
         public static UniversityDataManager dataManager { private set; get; }
         public List<Student> Students;
         Course selectedCourse = null;
+        public string SearchText;
+        /// <summary>
+        /// The student array
+        /// </summary>
+        public Student[] StudentArray;
+
+        private Quicksort quickSort = new Quicksort();
+        private Heapsort heapSort = new Heapsort();
+        private BinarySearch binarySearch = new BinarySearch();
 
         public MainWindow()
         {
             InitializeComponent();
             dataManager = new UniversityDataManager();
             Students = dataManager.Students.ToList();
+            StudentArray = dataManager.Students.ToArray();
         }
 
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)
@@ -50,6 +61,43 @@ namespace StudGradPro
         private void cmbSortBy_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string selectedColumn = (sender as ComboBox).SelectedItem as string;
+			Student[] ResultedStudent;
+            if (selectedColumn == "FirstName")
+            {
+                ResultedStudent = quickSort.quickSortByFirstName(StudentArray, 0, StudentArray.Length - 1);
+            }
+            else if (selectedColumn == "LastName")
+            {
+                ResultedStudent = quickSort.quickSortByLastName(StudentArray, 0, StudentArray.Length - 1);
+
+            }
+            else if(selectedColumn =="Status")
+            {
+                ResultedStudent = quickSort.quickSortByStatus(StudentArray, 0, StudentArray.Length - 1);
+            }
+            else 
+            {
+                ResultedStudent = quickSort.quickSortById(StudentArray, 0, StudentArray.Length - 1);
+            }
+            gridStudents.ItemsSource = null;
+            gridStudents.ItemsSource = ResultedStudent;
+			
+            if(selectedCourse == null)
+            {
+                return;
+            }
+            var studByCourses = dataManager.StudentsByCourse(Students, selectedCourse.Id);
+
+            if (selectedColumn == "GPA/TotalGrade/LetterGrade")
+            {
+                Heap heap = new Heap() { HeapSize = studByCourses.Length, SortedStudent = studByCourses };
+
+                Heapsort hs = new Heapsort();
+                hs.Sort(studByCourses.Length, heap);
+
+                gridStudents.ItemsSource = studByCourses;
+            }
+
         }
 
         private void cmbSearchBy_Loaded(object sender, RoutedEventArgs e)
@@ -78,6 +126,23 @@ namespace StudGradPro
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
+            var selected = cmbSearchBy.SelectedValue as string;
+
+            Student[] sorted = selectionSort(StudentArray);
+            Student search = null;
+
+            if (selected == "FirstName")
+            {
+                search = binarySearch.Search(sorted, searchText.Text);
+            }
+
+            if(search == null)
+            {
+                MessageBox.Show("Search String Not Found", "Search", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
+
+            gridStudents.ItemsSource = new List<Student>() { search };
 
         }
 
@@ -115,6 +180,47 @@ namespace StudGradPro
         private void btnFilter_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        
+
+        public Student[] selectionSort(Student[] students)
+        {
+            int n = students.Length - 1;
+            for (int i = 0; i < n; i++)
+            {
+                int min = i;
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (string.Compare(students[j].FirstName, students[min].FirstName) < 0)
+                    {
+                        min = j;
+                    }
+
+                }
+                Student temp = students[i];
+                students[i] = students[min];
+                students[min] = temp;
+
+            }
+
+            return students;
+
+        }//end of selection sort
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedCourse != null)
+            {
+                gridStudents.ItemsSource = dataManager.StudentsByCourse(Students, selectedCourse.Id);
+
+                cmbSortBy.ItemsSource = StudentByCourse.SortableColumns;
+                cmbSearchBy.ItemsSource = StudentByCourse.SearchableColumns;
+            }
+            else
+            {
+                gridStudents.ItemsSource = Students;
+            }
         }
     }
 }

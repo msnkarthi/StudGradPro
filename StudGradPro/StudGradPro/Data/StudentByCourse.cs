@@ -23,7 +23,7 @@ namespace StudGradPro.Data
 
         public static List<string> SortableColumns = new List<string>()
         {
-            "Id", "FirstName", "LastName", "GPA", "TotalGrade", "LetterGrade"
+            "Id", "FirstName", "LastName", "GPA/TotalGrade/LetterGrade"
         };
 
         public static List<string> SearchableColumns = new List<string>()
