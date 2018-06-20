@@ -5,51 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudGradPro"
         mc:Ignorable="d"
-        Title="Student Grading System" Height="350" Width="525" WindowState="Maximized" WindowStyle="SingleBorderWindow">
-    <Window.Resources>
-        <DataTemplate x:Key="myFirstItemTemplate">
-            <StackPanel>
-                <TextBlock Text="{Binding Name}" />
-            </StackPanel>
-        </DataTemplate>
-        <DataTemplate x:Key="StudentTemplate" DataType="local:Student">
-            <StackPanel>
-
-
-                <Label>Student Name</Label>
-                <TextBlock Text="{Binding Path=FirstName}" />
-                <TextBlock Text="{Binding Path=LastName}"/>
-                
-            </StackPanel>
-        </DataTemplate>
-    </Window.Resources>
+        Title="Student Grading System" Height="550" Width="925" WindowState="Maximized" WindowStyle="SingleBorderWindow">
     <Grid>
         <Grid Margin="5" Background="DarkGray">
             <Grid Background="LightBlue">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0" HorizontalAlignment="Center" FontSize="20">Student Grading System</Label>
                 <Grid Grid.Row="1" Margin="2">
                     <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
 
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
+                        
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Label>Select Course</Label>
+                    <StackPanel Grid.Row="0" Grid.Column="0">
+                        <TextBlock FontWeight="Bold" FontSize="15" Foreground="Green">Step to view/update grade</TextBlock>
+                        <TextBlock FontSize="13" Foreground="Green">1. Select Course from dropdown</TextBlock>
+                        <TextBlock FontSize="13" Foreground="Green">2. Double click on the student row to get a Student Record at the bottom</TextBlock>
+                        <TextBlock FontSize="13" Foreground="Green">3. Edit Grades and Click Update to Save</TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Select Course</TextBlock>
                         <ComboBox
             HorizontalAlignment="Left"
             Margin="1"
             VerticalAlignment="Center"
-            Width="100"
+            Width="300"
             Loaded="cmbCourse_Loaded"
             SelectionChanged="cmbCourse_SelectionChanged" x:Name="cmbCourse">
                             <ComboBox.ItemTemplate>
@@ -62,7 +53,7 @@
                         </ComboBox>
 
                     </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Orientation="Horizontal">
                         <Label>Sort By</Label>
                         <ComboBox
             HorizontalAlignment="Left"
@@ -73,7 +64,7 @@
             SelectionChanged="cmbSortBy_SelectionChanged" x:Name="cmbSortBy"/>
 
                     </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
                         <Label>Search By</Label>
                         <ComboBox
             HorizontalAlignment="Left"
@@ -84,6 +75,12 @@
             SelectionChanged="cmbSearchBy_SelectionChanged" x:Name="cmbSearchBy"/>
                         <TextBox x:Name="searchText" Width="50"></TextBox>
                         <Button x:Name="btnSearch" Width="50" Click="btnSearch_Click">Search</Button>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Label>Filter Grade Range</Label>
+                            <TextBox x:Name="filterMin" Width="20" Margin="2">70</TextBox>
+                            <TextBox x:Name="filterMax" Width="20" Margin="2">90</TextBox>
+                        <Button x:Name="btnFilter" Width="50" Click="btnFilter_Click">Filter</Button>
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="3" >

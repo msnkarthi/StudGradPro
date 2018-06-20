@@ -111,5 +111,10 @@ namespace StudGradPro
             }
             dataManager.StoreStudents();
         }
+
+        private void btnFilter_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
