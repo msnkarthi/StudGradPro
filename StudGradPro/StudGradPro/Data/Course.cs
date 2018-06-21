@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ Authors Name    : Karthikeyan Nagarajan & Bharath Kumar Pidapa
+ 
+ File Name      :   Course.cs
+ Description    :   Defines Course Type           
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace StudGradPro.Data
 {
+    /// <summary>
+    /// Course Type
+    /// </summary>
     public class Course
     {
         public int Id { set; get; }

@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ Authors Name    : Karthikeyan Nagarajan & Bharath Kumar Pidapa
+ 
+ File Name      :   StudentByCourse.cs
+ Description    :   Class defines Student Properties by selected Course
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,16 +12,16 @@ using System.Threading.Tasks;
 
 namespace StudGradPro.Data
 {
+    /// <summary>
+    /// Helps to display Student recors by selected course
+    /// </summary>
     public class StudentByCourse
     {
-        //Id FirstName, LastName, Status, TotalGrade GPA LetterGrade
         public int Id { set; get; }
         public string FirstName { set; get; }
         public string LastName { set; get; }
         public string EMail { set; get; }
         public string Status { set; get; }
-        //public int CourseId { set; get; }
-        //public int CourseName { set; get; }
         public double TotalGrade { private set; get; }
         public double GPA { private set; get; }
         public string LetterGrade { get; private set; }
@@ -44,7 +50,7 @@ namespace StudGradPro.Data
 
             ActiveCourse = student.CoursesEnrolled.Where(item => item.Id == courseId).Single();
 
-            var selectedCourse = MainWindow.dataManager.GetCourseById(courseId);
+            var selectedCourse = MainWindow.DataManager.GetCourseById(courseId);
 
             TotalGrade = CalculateGrade(student, selectedCourse);
             grade = new Grade(TotalGrade);
@@ -52,7 +58,6 @@ namespace StudGradPro.Data
             GPA = grade.Scale;
             LetterGrade = grade.LetterGrade;
 
-            //CourseId = courseId;
         }
 
         private double CalculateGrade(Student student, Course selectedCourse)
@@ -64,7 +69,6 @@ namespace StudGradPro.Data
                 {
                     foreach (GradeItem gradeItem in course.Plan)
                     {
-                        //Calcualte properly
                         totalGrade += gradeItem.Grade;
                     }
                 }

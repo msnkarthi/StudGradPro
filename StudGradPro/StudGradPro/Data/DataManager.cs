@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ Authors Name    : Karthikeyan Nagarajan & Bharath Kumar Pidapa
+ 
+ File Name      :   DataManager.cs
+ Description    :   Class helps to manage Student Records
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace StudGradPro.Data
 {
+    /// <summary>
+    /// Class helps to manage Student Records
+    /// </summary>
     public class UniversityDataManager
     {
         public Student[] Students { private set; get; }

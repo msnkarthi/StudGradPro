@@ -72,7 +72,7 @@
             VerticalAlignment="Center"
             Width="100"
             Loaded="cmbSearchBy_Loaded"
-            SelectionChanged="cmbSearchBy_SelectionChanged" x:Name="cmbSearchBy"/>
+            x:Name="cmbSearchBy"/>
                         <TextBox x:Name="searchText" Width="50"></TextBox>
                         <Button x:Name="btnSearch" Width="50" Click="btnSearch_Click">Search</Button>
                         <Button x:Name="btnSearchClear" Click="btnClear_Click" Width="50">Clear</Button>

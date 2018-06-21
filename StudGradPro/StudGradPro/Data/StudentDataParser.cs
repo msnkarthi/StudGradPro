@@ -1,4 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿/*
+ Authors Name    : Karthikeyan Nagarajan & Bharath Kumar Pidapa
+ 
+ File Name      :   StudentDataParser.cs
+ Description    :   Class Retrieves and Stores Student record in JSON file
+*/
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,8 +14,15 @@ using System.Threading.Tasks;
 
 namespace StudGradPro.Data
 {
+    /// <summary>
+    /// Class Serializes/Deserializes Student record
+    /// </summary>
     class StudentDataParser
     {
+        /// <summary>
+        //Gets student from external JSON file
+        /// </summary>
+        /// <returns></returns>
         public Student[] GetStudents()
         {
             using (StreamReader r = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + @"data\students.json"))
@@ -20,6 +33,10 @@ namespace StudGradPro.Data
             }
         }
 
+        /// <summary>
+        /// Updates student from external JSON file
+        /// </summary>
+        /// <param name="students"></param>
         public void UpdateStudents(Student[] students)
         {
             using (StreamWriter w = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + @"data\students.json"))

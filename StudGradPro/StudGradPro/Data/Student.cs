@@ -1,23 +1,20 @@
-﻿using System;
+﻿/*
+ Authors Name    : Karthikeyan Nagarajan & Bharath Kumar Pidapa
+ 
+ File Name      :   Student.cs
+ Description    :   Class defines Student Type
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-/*
- * Student grading system is fine. Some comments:
 
-1. Make sure that your system will load an initial list of students from a file and provide that file to load with your project. It should have at least 100 students that can be loaded.
-2. Your student records need multiple fields so in addition to grade and id there should be some other fields such as first and last name.
-2. It is not very efficient to have to move data around into too many different data structures just so you can run algorithms against it. If you use a linked list for your storage, you can make it ordered list as you insert and then you can use binary search on it. 
-3. For comparison you cannot compare linear search with binary search. 
-Linear search is not much of an algorithm and you need to compare algorithms we discussed in class. 
-Instead, you should add a functionality to request a list of students based on some criteria, for example using grade as key and some filtering value (e.g. all students with 80+ or < 80 or 70-80, etc.). 
-Then you would need a search functionality to return a list of records that match that criteria. 
-This sublist could be stored in another data structure and you should allow functionality for that list to be sorted using merge sort and another sort such as quicksort or heapsort for comparison. 
-You need to allow multiple sorting options for example by id or by last name where user decides how they want the data sorted to be displayed.
-*/
 namespace StudGradPro.Data
 {
+    /// <summary>
+    /// Student Type
+    /// </summary>
     public class Student
     {
         public int Id {  set; get; }

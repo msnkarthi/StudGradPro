@@ -1,5 +1,5 @@
 ﻿/*
- Author Name    : Karthikeyan Nagarajan; # 227516
+ Authors Name    : Karthikeyan Nagarajan & Bharath Kumar Pidapa
  
  File Name      :   Heapsort.cs
  Description    :   Class implements Heap Sort Algorithm.           

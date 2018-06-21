@@ -1,4 +1,10 @@
-﻿using StudGradPro.Data;
+﻿/*
+ Authors Name    : Karthikeyan Nagarajan & Bharath Kumar Pidapa
+ 
+ File Name      :   Quicksort.cs
+ Description    :   Class implements Quick Sort Algorithm.           
+*/
+using StudGradPro.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace StudGradPro.Algorithms
 {
+    /// <summary>
+    /// Quicksort Implementation
+    /// </summary>
     public class Quicksort
     {
         public Student[] quickSortByFirstName(Student[] students, int start, int end)

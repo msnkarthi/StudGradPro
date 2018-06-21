@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ Authors Name    : Karthikeyan Nagarajan & Bharath Kumar Pidapa
+ 
+ File Name      :   Grade.cs
+ Description    :   Defines Grade Type
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace StudGradPro.Data
 {
+    /// <summary>
+    /// Defines Grade Type
+    /// </summary>
     public class Grade
     {
         public double Scale { private set; get; }

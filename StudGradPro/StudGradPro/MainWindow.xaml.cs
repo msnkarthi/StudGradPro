@@ -1,4 +1,10 @@
-﻿using StudGradPro.Algorithms;
+﻿/*
+ Authors Name    : Karthikeyan Nagarajan & Bharath Kumar Pidapa
+ 
+ File Name      :   Student.cs
+ Description    :   Class implements UI design and functionalities
+*/
+using StudGradPro.Algorithms;
 using StudGradPro.Data;
 using System;
 using System.Collections.Generic;
@@ -22,42 +28,87 @@ namespace StudGradPro
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static UniversityDataManager dataManager { private set; get; }
+        /// <summary>
+        /// Holds instances of UniversityDataManager to retrieve and update Student record
+        /// </summary>
+        public static UniversityDataManager DataManager { private set; get; }
+
+        /// <summary>
+        /// Students Record 
+        /// </summary>
         public List<Student> Students;
-        Course selectedCourse = null;
-        public string SearchText;
+
+        /// <summary>
+        /// Holds Selected Course after selecting course
+        /// </summary>
+        private Course selectedCourse = null;
+
         /// <summary>
         /// The student array
         /// </summary>
         public Student[] StudentArray;
 
+        /// <summary>
+        /// Quick Sort instance
+        /// </summary>
         private Quicksort quickSort = new Quicksort();
+
+        /// <summary>
+        /// Heap Sort instance
+        /// </summary>
         private Heapsort heapSort = new Heapsort();
+
+        /// <summary>
+        /// Binary Search instance
+        /// </summary>
         private BinarySearch binarySearch = new BinarySearch();
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
-            dataManager = new UniversityDataManager();
-            Students = dataManager.Students.ToList();
-            StudentArray = dataManager.Students.ToArray();
+            DataManager = new UniversityDataManager();
+            Students = DataManager.Students.ToList();
+            StudentArray = DataManager.Students.ToArray();
         }
 
+        /// <summary>
+        /// Load Datagrid with Students record
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)
         {
             gridStudents.ItemsSource = Students;
         }
 
+        /// <summary>
+        /// Disable Default Sorting functionality of DataGrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DataGrid_Sorting(object sender, DataGridSortingEventArgs e)
         {
             e.Handled = true;
         }
 
+        /// <summary>
+        /// Load dropdown for 'Sort By' option
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbSortBy_Loaded(object sender, RoutedEventArgs e)
         {
             cmbSortBy.ItemsSource = Student.SortableColumns;
         }
 
+        /// <summary>
+        /// Invoke appropriate Sort algorithm on selection of 'Sort By' option
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbSortBy_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string selectedColumn = (sender as ComboBox).SelectedItem as string;
@@ -86,7 +137,7 @@ namespace StudGradPro
             {
                 return;
             }
-            var studByCourses = dataManager.StudentsByCourse(Students, selectedCourse.Id);
+            var studByCourses = DataManager.StudentsByCourse(Students, selectedCourse.Id);
 
             if (selectedColumn == "GPA/TotalGrade/LetterGrade")
             {
@@ -100,30 +151,45 @@ namespace StudGradPro
 
         }
 
+        /// <summary>
+        /// Load dropdown for 'Search By' option
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbSearchBy_Loaded(object sender, RoutedEventArgs e)
         {
             cmbSearchBy.ItemsSource = Student.SearchableColumns;
         }
 
-        private void cmbSearchBy_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string selectedColumn = (sender as ComboBox).SelectedItem as string;
-        }
-
+        /// <summary>
+        /// Load available courses to Course dropdown control
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbCourse_Loaded(object sender, RoutedEventArgs e)
         {
-            cmbCourse.ItemsSource = dataManager.AvailableCourses;
+            cmbCourse.ItemsSource = DataManager.AvailableCourses;
         }
 
+        /// <summary>
+        /// Load approriate Students record on selection of Course
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbCourse_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedCourse = (sender as ComboBox).SelectedItem as Course;
-            gridStudents.ItemsSource = dataManager.StudentsByCourse(Students, selectedCourse.Id);
+            gridStudents.ItemsSource = DataManager.StudentsByCourse(Students, selectedCourse.Id);
 
             cmbSortBy.ItemsSource = StudentByCourse.SortableColumns;
             cmbSearchBy.ItemsSource = StudentByCourse.SearchableColumns;
         }
 
+        /// <summary>
+        /// On Search Button Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             var selected = cmbSearchBy.SelectedValue as string;
@@ -146,13 +212,11 @@ namespace StudGradPro
 
         }
 
-        private void gridStudents_Selected(object sender, RoutedEventArgs e)
-        {
-            //Student[] selectedStudent = (sender as DataGrid).SelectedItem as Student[];
-
-            //controlStudent.DataContext = selectedStudent[0];
-        }
-
+        /// <summary>
+        /// On double-click in data grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void gridStudents_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var selectedStudent = gridStudents.SelectedItem as Student;
@@ -165,25 +229,56 @@ namespace StudGradPro
             }
         }
 
+        /// <summary>
+        /// Stores Student records to JSON file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUpdateDB_Click(object sender, RoutedEventArgs e)
         {
             if (selectedCourse != null)
             {
-                gridStudents.ItemsSource = dataManager.StudentsByCourse(Students, selectedCourse.Id);
+                gridStudents.ItemsSource = DataManager.StudentsByCourse(Students, selectedCourse.Id);
 
                 cmbSortBy.ItemsSource = StudentByCourse.SortableColumns;
                 cmbSearchBy.ItemsSource = StudentByCourse.SearchableColumns;
             }
-            dataManager.StoreStudents();
+            DataManager.StoreStudents();
         }
 
+        /// <summary>
+        /// Invoke Filter & update result in datagrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFilter_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                var studByCourses = gridStudents.ItemsSource as StudentByCourse[];
+                Heap heap = new Heap() { HeapSize = studByCourses.Length, SortedStudent = studByCourses };
 
+                Heapsort hs = new Heapsort();
+                hs.Sort(studByCourses.Length, heap);
+
+                int from = Int32.Parse(filterMin.Text);
+                int to = Int32.Parse(filterMax.Text);
+
+                var filteredStudents = binarySearch.SearchRange(heap.SortedStudent, from, to);
+
+                gridStudents.ItemsSource = filteredStudents;
+            }
+            catch
+            {
+
+            }
         }
 
-        
-
+        /// <summary>
+        /// Selection sort
+        /// </summary>
+        /// <param name="students"></param>
+        /// <returns></returns>
         public Student[] selectionSort(Student[] students)
         {
             int n = students.Length - 1;
@@ -206,13 +301,18 @@ namespace StudGradPro
 
             return students;
 
-        }//end of selection sort
+        }
 
+        /// <summary>
+        /// Clear results in data grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
             if (selectedCourse != null)
             {
-                gridStudents.ItemsSource = dataManager.StudentsByCourse(Students, selectedCourse.Id);
+                gridStudents.ItemsSource = DataManager.StudentsByCourse(Students, selectedCourse.Id);
 
                 cmbSortBy.ItemsSource = StudentByCourse.SortableColumns;
                 cmbSearchBy.ItemsSource = StudentByCourse.SearchableColumns;
