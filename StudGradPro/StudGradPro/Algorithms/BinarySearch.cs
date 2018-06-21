@@ -24,7 +24,7 @@ namespace StudGradPro.Algorithms
         /// <param name="students"></param>
         /// <param name="item"></param>
         /// <returns></returns>
-        public Student Search(Student[] students, string item)
+        public IStudent[] SearchByFirstName(IStudent[] students, string item)
         {
             int n = students.Length - 1;
             int lowerbound = 0;
@@ -41,9 +41,126 @@ namespace StudGradPro.Algorithms
                 ctr++;
             }
             if (string.Compare(item, students[mid].FirstName) == 0)
-                return students[mid];
+            {
+                if(students is Student[])
+                {
+                    return new Student[1] { students[mid] as Student };
+                }
+                else
+                {
+                    return new StudentByCourse[1] { students[mid] as StudentByCourse };
+                }
+            }
             else
+            {
                 return null;
+            }
+        }
+
+        ///// <summary>
+        ///// Searches the by identifier.
+        ///// </summary>
+        ///// <param name="students">The students.</param>
+        ///// <param name="item">The item.</param>
+        ///// <returns></returns>
+        //public Student SearchById(Student[] students, int item)
+        //{
+        //    int n = students.Length - 1;
+        //    int lowerbound = 0;
+        //    int upperbound = n - 1;
+        //    int mid = (lowerbound + upperbound) / 2;
+        //    int ctr = 1;
+        //    while ((item.CompareTo(students[mid].Id) != 0) && (lowerbound <= upperbound))
+        //    {
+        //        if (item.CompareTo(students[mid].Id) > 0)
+        //            lowerbound = mid + 1;
+        //        else
+        //            upperbound = mid - 1;
+        //        mid = (lowerbound + upperbound) / 2;
+        //        ctr++;
+        //    }
+        //    if (item.CompareTo(students[mid].Id) == 0)
+        //        return students[mid];
+        //    else
+        //        return null;
+        //}
+
+        /// <summary>
+        /// Searches the last name of the by.
+        /// </summary>
+        /// <param name="students">The students.</param>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public IStudent[] SearchByLastName(IStudent[] students, string item)
+        {
+            int n = students.Length - 1;
+            int lowerbound = 0;
+            int upperbound = n - 1;
+            int mid = (lowerbound + upperbound) / 2;
+            int ctr = 1;
+            while ((string.Compare(item, students[mid].LastName) != 0) && (lowerbound <= upperbound))
+            {
+                if (string.Compare(item, students[mid].LastName) > 0)
+                    lowerbound = mid + 1;
+                else
+                    upperbound = mid - 1;
+                mid = (lowerbound + upperbound) / 2;
+                ctr++;
+            }
+            if (string.Compare(item, students[mid].LastName) == 0)
+            {
+                if (students is Student[])
+                {
+                    return new Student[1] { students[mid] as Student };
+                }
+                else
+                {
+                    return new StudentByCourse[1] { students[mid] as StudentByCourse };
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Searches the by status.
+        /// </summary>
+        /// <param name="students">The students.</param>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public IStudent[] SearchByStatus(IStudent[] students, string item)
+        {
+            int n = students.Length - 1;
+            int lowerbound = 0;
+            int upperbound = n - 1;
+            int mid = (lowerbound + upperbound) / 2;
+            int ctr = 1;
+            while ((string.Compare(item, students[mid].Status) != 0) && (lowerbound <= upperbound))
+            {
+                if (string.Compare(item, students[mid].Status) > 0)
+                    lowerbound = mid + 1;
+                else
+                    upperbound = mid - 1;
+                mid = (lowerbound + upperbound) / 2;
+                ctr++;
+            }
+            if (string.Compare(item, students[mid].Status) == 0)
+            {
+                if (students is Student[])
+                {
+                    return new Student[1] { students[mid] as Student };
+                }
+                else
+                {
+                    return new StudentByCourse[1] { students[mid] as StudentByCourse };
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>

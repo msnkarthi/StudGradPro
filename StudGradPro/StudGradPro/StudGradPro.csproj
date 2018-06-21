@@ -58,10 +58,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Algorithms\BinarySearch.cs" />
+    <Compile Include="Algorithms\InterpolationSearch.cs" />
     <Compile Include="Algorithms\Quicksort.cs" />
     <Compile Include="Data\Course.cs" />
     <Compile Include="Data\DataManager.cs" />
     <Compile Include="Data\Grade.cs" />
+    <Compile Include="Data\IStudent.cs" />
     <Compile Include="Data\StudentByCourse.cs" />
     <Compile Include="Data\StudentDataParser.cs" />
     <Compile Include="Data\Student.cs" />

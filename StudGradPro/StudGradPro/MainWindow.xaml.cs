@@ -64,6 +64,11 @@ namespace StudGradPro
         private BinarySearch binarySearch = new BinarySearch();
 
         /// <summary>
+        /// Interpolation Search instance
+        /// </summary>
+        private InterpolationSearch interpolationSearch = new InterpolationSearch();
+ 
+        /// <summary>
         /// Constructor
         /// </summary>
         public MainWindow()
@@ -112,43 +117,67 @@ namespace StudGradPro
         private void cmbSortBy_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string selectedColumn = (sender as ComboBox).SelectedItem as string;
-			Student[] ResultedStudent;
-            if (selectedColumn == "FirstName")
-            {
-                ResultedStudent = quickSort.quickSortByFirstName(StudentArray, 0, StudentArray.Length - 1);
-            }
-            else if (selectedColumn == "LastName")
-            {
-                ResultedStudent = quickSort.quickSortByLastName(StudentArray, 0, StudentArray.Length - 1);
 
-            }
-            else if(selectedColumn =="Status")
+            IStudent[] ResultedStudent;
+
+            if (selectedCourse == null)
             {
-                ResultedStudent = quickSort.quickSortByStatus(StudentArray, 0, StudentArray.Length - 1);
-            }
-            else 
-            {
-                ResultedStudent = quickSort.quickSortById(StudentArray, 0, StudentArray.Length - 1);
-            }
-            gridStudents.ItemsSource = null;
-            gridStudents.ItemsSource = ResultedStudent;
-			
-            if(selectedCourse == null)
-            {
+                if (selectedColumn == "FirstName")
+                {
+                    ResultedStudent = quickSort.quickSortByFirstName(StudentArray, 0, StudentArray.Length - 1);
+                }
+                else if (selectedColumn == "LastName")
+                {
+                    ResultedStudent = quickSort.quickSortByLastName(StudentArray, 0, StudentArray.Length - 1);
+
+                }
+                else if (selectedColumn == "Status")
+                {
+                    ResultedStudent = quickSort.quickSortByStatus(StudentArray, 0, StudentArray.Length - 1);
+                }
+                else
+                {
+                    ResultedStudent = quickSort.quickSortById(StudentArray, 0, StudentArray.Length - 1);
+                }
+                gridStudents.ItemsSource = null;
+
+                gridStudents.ItemsSource = ResultedStudent as Student[];
                 return;
             }
-            var studByCourses = DataManager.StudentsByCourse(Students, selectedCourse.Id);
-
-            if (selectedColumn == "GPA/TotalGrade/LetterGrade")
+            else
             {
-                Heap heap = new Heap() { HeapSize = studByCourses.Length, SortedStudent = studByCourses };
+                var studByCourses = DataManager.StudentsByCourse(Students, selectedCourse.Id);
 
-                Heapsort hs = new Heapsort();
-                hs.Sort(studByCourses.Length, heap);
+                if (selectedColumn == "GPA/TotalGrade/LetterGrade")
+                {
+                    Heap heap = new Heap() { HeapSize = studByCourses.Length, SortedStudent = studByCourses };
+                    heapSort.Sort(studByCourses.Length, heap);
 
-                gridStudents.ItemsSource = studByCourses;
+                    gridStudents.ItemsSource = studByCourses;
+                }
+                else
+                {
+                    if (selectedColumn == "FirstName")
+                    {
+                        ResultedStudent = quickSort.quickSortByFirstName(studByCourses, 0, StudentArray.Length - 1);
+                    }
+                    else if (selectedColumn == "LastName")
+                    {
+                        ResultedStudent = quickSort.quickSortByLastName(studByCourses, 0, StudentArray.Length - 1);
+
+                    }
+                    else if (selectedColumn == "Status")
+                    {
+                        ResultedStudent = quickSort.quickSortByStatus(studByCourses, 0, StudentArray.Length - 1);
+                    }
+                    else
+                    {
+                        ResultedStudent = quickSort.quickSortById(studByCourses, 0, StudentArray.Length - 1);
+                    }
+
+                    gridStudents.ItemsSource = ResultedStudent as StudentByCourse[];
+                }
             }
-
         }
 
         /// <summary>
@@ -192,24 +221,88 @@ namespace StudGradPro
         /// <param name="e"></param>
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            var selected = cmbSearchBy.SelectedValue as string;
+            var selectedColumn = cmbSearchBy.SelectedValue as string;
 
-            Student[] sorted = selectionSort(StudentArray);
-            Student search = null;
+            IStudent[] sortedStudent;
+            IStudent[] searchResultStudents = null;
 
-            if (selected == "FirstName")
+            if (selectedCourse == null)
             {
-                search = binarySearch.Search(sorted, searchText.Text);
-            }
+                if (selectedColumn == "FirstName")
+                {
+                    sortedStudent = quickSort.quickSortByFirstName(StudentArray, 0, StudentArray.Length - 1);
+                    searchResultStudents = binarySearch.SearchByFirstName(sortedStudent, searchText.Text);
+                }
+                else if (selectedColumn == "LastName")
+                {
+                    sortedStudent = quickSort.quickSortByLastName(StudentArray, 0, StudentArray.Length - 1);
+                    searchResultStudents = binarySearch.SearchByLastName(sortedStudent, searchText.Text);
 
-            if(search == null)
+                }
+                else if (selectedColumn == "Status")
+                {
+                    sortedStudent = quickSort.quickSortByStatus(StudentArray, 0, StudentArray.Length - 1);
+                    searchResultStudents = binarySearch.SearchByStatus(sortedStudent, searchText.Text);
+                }
+                else if (selectedColumn == "Id")
+                {
+                    sortedStudent = quickSort.quickSortById(StudentArray, 0, StudentArray.Length - 1);
+                    searchResultStudents = interpolationSearch.SearchById(sortedStudent, Int32.Parse(searchText.Text));
+                }
+                if (searchResultStudents == null)
+                {
+                    MessageBox.Show("Search string not found", "Search", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
+                gridStudents.ItemsSource = null;
+                gridStudents.ItemsSource = searchResultStudents as Student[];
+            }
+            else
             {
-                MessageBox.Show("Search String Not Found", "Search", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                return;
+                var studByCourses = DataManager.StudentsByCourse(Students, selectedCourse.Id);
+
+                if (selectedColumn == "GPA/TotalGrade/LetterGrade")
+                {
+                    Heap heap = new Heap() { HeapSize = studByCourses.Length, SortedStudent = studByCourses };
+                    heapSort.Sort(studByCourses.Length, heap);
+
+                    //searchResultStudents = binarySearch.SearchBy(studByCourses, searchText.Text);
+
+                    //gridStudents.ItemsSource = studByCourses;
+                }
+                else
+                {
+                    if (selectedColumn == "FirstName")
+                    {
+                        sortedStudent = quickSort.quickSortByFirstName(studByCourses, 0, StudentArray.Length - 1);
+                        searchResultStudents = binarySearch.SearchByFirstName(sortedStudent, searchText.Text);
+                    }
+                    else if (selectedColumn == "LastName")
+                    {
+                        sortedStudent = quickSort.quickSortByLastName(studByCourses, 0, StudentArray.Length - 1);
+                        searchResultStudents = binarySearch.SearchByLastName(sortedStudent, searchText.Text);
+
+                    }
+                    else if (selectedColumn == "Status")
+                    {
+                        sortedStudent = quickSort.quickSortByStatus(studByCourses, 0, StudentArray.Length - 1);
+                        searchResultStudents = binarySearch.SearchByStatus(sortedStudent, searchText.Text);
+                    }
+                    else if(selectedColumn == "Id")
+                    {
+                        sortedStudent = quickSort.quickSortById(studByCourses, 0, StudentArray.Length - 1);
+                        searchResultStudents = interpolationSearch.SearchById(sortedStudent, Int32.Parse(searchText.Text));
+                    }
+                }
+
+                if (searchResultStudents == null)
+                {
+                    MessageBox.Show("Search string not found", "Search", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
+                gridStudents.ItemsSource = null;
+                gridStudents.ItemsSource = searchResultStudents as StudentByCourse[];
             }
-
-            gridStudents.ItemsSource = new List<Student>() { search };
-
         }
 
         /// <summary>
@@ -255,52 +348,50 @@ namespace StudGradPro
         {
             try
             {
-                var studByCourses = gridStudents.ItemsSource as StudentByCourse[];
-                Heap heap = new Heap() { HeapSize = studByCourses.Length, SortedStudent = studByCourses };
+                if(selectedCourse == null)
+                {
+                    MessageBox.Show("Please select course to filter by grade", "Filter", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
 
-                Heapsort hs = new Heapsort();
-                hs.Sort(studByCourses.Length, heap);
+                if(string.IsNullOrWhiteSpace(filterMin.Text))
+                {
+                    MessageBox.Show("Please enter correct Range", "Filter", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(filterMax.Text))
+                {
+                    MessageBox.Show("Please enter correct Range", "Filter", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
 
                 int from = Int32.Parse(filterMin.Text);
                 int to = Int32.Parse(filterMax.Text);
 
+                var studByCourses = DataManager.StudentsByCourse(Students, selectedCourse.Id);
+                Heap heap = new Heap() { HeapSize = studByCourses.Length, SortedStudent = studByCourses as StudentByCourse[] };
+
+                Heapsort hs = new Heapsort();
+                hs.Sort(studByCourses.Length, heap);
+
                 var filteredStudents = binarySearch.SearchRange(heap.SortedStudent, from, to);
 
+                if(filteredStudents == null)
+                {
+                    return;
+                }
+
+                if(filteredStudents.Count == 0)
+                {
+                    MessageBox.Show("No student found", "Filter", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
                 gridStudents.ItemsSource = filteredStudents;
             }
             catch
             {
-
+                MessageBox.Show("Error", "Filter", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        /// <summary>
-        /// Selection sort
-        /// </summary>
-        /// <param name="students"></param>
-        /// <returns></returns>
-        public Student[] selectionSort(Student[] students)
-        {
-            int n = students.Length - 1;
-            for (int i = 0; i < n; i++)
-            {
-                int min = i;
-                for (int j = i + 1; j < n; j++)
-                {
-                    if (string.Compare(students[j].FirstName, students[min].FirstName) < 0)
-                    {
-                        min = j;
-                    }
-
-                }
-                Student temp = students[i];
-                students[i] = students[min];
-                students[min] = temp;
-
-            }
-
-            return students;
-
         }
 
         /// <summary>

@@ -15,7 +15,7 @@ namespace StudGradPro.Data
     /// <summary>
     /// Student Type
     /// </summary>
-    public class Student
+    public class Student : IStudent
     {
         public int Id {  set; get; }
         public string FirstName {  set; get; }
@@ -24,6 +24,11 @@ namespace StudGradPro.Data
         public string Gender { set; get; }
         public string EMail { set; get; }
         public string Status { set; get; }
+        public bool CanSort()
+        {
+            return true;
+        }
+
         public Course[] CoursesEnrolled;
 
         public static List<string> SortableColumns = new List<string>()

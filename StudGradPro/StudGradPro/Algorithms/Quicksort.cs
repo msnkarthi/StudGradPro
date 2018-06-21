@@ -18,7 +18,7 @@ namespace StudGradPro.Algorithms
     /// </summary>
     public class Quicksort
     {
-        public Student[] quickSortByFirstName(Student[] students, int start, int end)
+        public IStudent[] quickSortByFirstName(IStudent[] students, int start, int end)
         {
             // index for the "left-to-right scan"
             int i = start;
@@ -65,7 +65,7 @@ namespace StudGradPro.Algorithms
             return students;
         }
 
-        public Student[] quickSortById(Student[] students, int start, int end)
+        public IStudent[] quickSortById(IStudent[] students, int start, int end)
         {
             // index for the "left-to-right scan"
             int i = start;
@@ -76,21 +76,21 @@ namespace StudGradPro.Algorithms
             if (j - i >= 1)
             {
                 // The pivot point of the sort method is arbitrarily set to the first element int the array.
-                String pivot = students[i].Id.ToString();
+                int pivot = students[i].Id;
                 // only scan between the two indexes, until they meet.
                 while (j > i)
                 {
                     // from the left, if the current element is lexicographically less than the (original)
                     // first element in the String array, move on. Stop advancing the counter when we reach
                     // the right or an element that is lexicographically greater than the pivot String.
-                    while (students[i].Id.ToString().CompareTo(pivot) <= 0 && i < end && j > i)
+                    while (students[i].Id <= pivot && i < end && j > i)
                     {
                         i++;
                     }
                     // from the right, if the current element is lexicographically greater than the (original)
                     // first element in the String array, move on. Stop advancing the counter when we reach
                     // the left or an element that is lexicographically less than the pivot String.
-                    while (students[j].Id.ToString().CompareTo(pivot) >= 0 && j > start && j >= i)
+                    while (students[j].Id >= pivot && j > start && j >= i)
                     {
                         j--;
                     }
@@ -112,7 +112,7 @@ namespace StudGradPro.Algorithms
             return students;
         }
 
-        public Student[] quickSortByStatus(Student[] students, int start, int end)
+        public IStudent[] quickSortByStatus(IStudent[] students, int start, int end)
         {
             // index for the "left-to-right scan"
             int i = start;
@@ -158,7 +158,7 @@ namespace StudGradPro.Algorithms
             return students;
         }
 
-        public Student[] quickSortByLastName(Student[] students, int start, int end)
+        public IStudent[] quickSortByLastName(IStudent[] students, int start, int end)
         {
             // index for the "left-to-right scan"
             int i = start;
@@ -206,7 +206,7 @@ namespace StudGradPro.Algorithms
             return students;
         }
 
-        private static void Swap(Student[] students, int i, int j)
+        private static void Swap(IStudent[] students, int i, int j)
         {
             var temp = students[i];
             students[i] = students[j];

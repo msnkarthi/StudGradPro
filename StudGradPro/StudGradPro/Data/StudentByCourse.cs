@@ -15,7 +15,7 @@ namespace StudGradPro.Data
     /// <summary>
     /// Helps to display Student recors by selected course
     /// </summary>
-    public class StudentByCourse
+    public class StudentByCourse : IStudent
     {
         public int Id { set; get; }
         public string FirstName { set; get; }

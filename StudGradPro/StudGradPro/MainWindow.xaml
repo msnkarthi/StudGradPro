@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:StudGradPro"
         mc:Ignorable="d"
         Title="Student Grading System" Height="550" Width="925" WindowState="Maximized" WindowStyle="SingleBorderWindow">
     <Grid>
@@ -29,7 +28,7 @@
                         
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="0" Grid.Column="0">
-                        <TextBlock FontWeight="Bold" FontSize="15" Foreground="Green">Step to view/update grade</TextBlock>
+                        <TextBlock FontWeight="Bold" FontSize="15" Foreground="Green">Steps to view/update grade</TextBlock>
                         <TextBlock FontSize="13" Foreground="Green">1. Select Course from dropdown</TextBlock>
                         <TextBlock FontSize="13" Foreground="Green">2. Double click on the student row to get a Student Record at the bottom</TextBlock>
                         <TextBlock FontSize="13" Foreground="Green">3. Edit Grades and Click Update to Save</TextBlock>
@@ -90,11 +89,7 @@
                         <RowDefinition Height="50*"></RowDefinition>
                         <RowDefinition Height="50*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <!--<Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60*"></ColumnDefinition>
-                        <ColumnDefinition Width="40*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>-->
-                    
+                   
                     <DataGrid x:Name="gridStudents" IsReadOnly="True" ItemsSource="{Binding Students}" MouseDoubleClick="gridStudents_MouseDoubleClick" Grid.Row="0"  Sorting="DataGrid_Sorting" AutoGenerateColumns="True" Loaded="DataGrid_Loaded"/>
                     <ContentControl Grid.Row="1" Background="LightGray" Margin="2" BorderBrush="Black" BorderThickness=".5" x:Name="controlStudent" >
                         <Grid>
@@ -152,7 +147,7 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                             <StackPanel Grid.Row="3" HorizontalAlignment="Center" Margin="2">
-                                <Button x:Name="btnUpdateDB" Click="btnUpdateDB_Click" Width="120">Update Data</Button>
+                                <Button x:Name="btnUpdateDB" Click="btnUpdateDB_Click" Width="120">Update DB</Button>
                             </StackPanel>
                         </Grid>
 
