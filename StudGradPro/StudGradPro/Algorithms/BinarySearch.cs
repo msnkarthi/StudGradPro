@@ -150,6 +150,11 @@ namespace StudGradPro.Algorithms
 
             List<StudentByCourse> res = new List<StudentByCourse>();
 
+            if(stopIndex - startIndex <= 0)
+            {
+                return res;
+            }
+
             for (int i = startIndex; i <= stopIndex; i++)
             {
                 res.Add(students[i]);
