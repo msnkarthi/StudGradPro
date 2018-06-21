@@ -14,10 +14,17 @@ using System.Threading.Tasks;
 namespace StudGradPro.Algorithms
 {
     /// <summary>
-    /// Quicksort Implementation
+    /// Implements Quicksort Algorithm.
     /// </summary>
     public class Quicksort
     {
+        /// <summary>
+        /// Performs Quick sort by First Name.
+        /// </summary>
+        /// <param name="students">The students.</param>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <returns>Returns Sorted Students.</returns>
         public IStudent[] quickSortByFirstName(IStudent[] students, int start, int end)
         {
             // index for the "left-to-right scan"
@@ -33,16 +40,11 @@ namespace StudGradPro.Algorithms
                 // only scan between the two indexes, until they meet.
                 while (j > i)
                 {
-                    // from the left, if the current element is lexicographically less than the (original)
-                    // first element in the String array, move on. Stop advancing the counter when we reach
-                    // the right or an element that is lexicographically greater than the pivot String.
                     while (students[i].FirstName.CompareTo(pivot) <= 0 && i < end && j > i)
                     {
                         i++;
                     }
-                    // from the right, if the current element is lexicographically greater than the (original)
-                    // first element in the String array, move on. Stop advancing the counter when we reach
-                    // the left or an element that is lexicographically less than the pivot String.
+
                     while (students[j].FirstName.CompareTo(pivot) >= 0 && j > start && j >= i)
                     {
                         j--;
@@ -51,9 +53,6 @@ namespace StudGradPro.Algorithms
                     if (j > i)
                         Swap(students, i, j);
                 }
-                // At this point, the two scans have crossed each other in the center of the array and stop.
-                // The left partition and right partition contain the right groups of numbers but are not
-                // sorted themselves. The following recursive code sorts the left and right partitions.
 
                 // Swap the pivot point with the last element of the left partition.
                 Swap(students, start, j);
@@ -65,6 +64,13 @@ namespace StudGradPro.Algorithms
             return students;
         }
 
+        /// <summary>
+        /// Performs Quick sort by Student Id.
+        /// </summary>
+        /// <param name="students">The students.</param>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <returns>Returns Sorted Students.</returns>
         public IStudent[] quickSortById(IStudent[] students, int start, int end)
         {
             // index for the "left-to-right scan"
@@ -80,16 +86,11 @@ namespace StudGradPro.Algorithms
                 // only scan between the two indexes, until they meet.
                 while (j > i)
                 {
-                    // from the left, if the current element is lexicographically less than the (original)
-                    // first element in the String array, move on. Stop advancing the counter when we reach
-                    // the right or an element that is lexicographically greater than the pivot String.
                     while (students[i].Id <= pivot && i < end && j > i)
                     {
                         i++;
                     }
-                    // from the right, if the current element is lexicographically greater than the (original)
-                    // first element in the String array, move on. Stop advancing the counter when we reach
-                    // the left or an element that is lexicographically less than the pivot String.
+
                     while (students[j].Id >= pivot && j > start && j >= i)
                     {
                         j--;
@@ -98,9 +99,6 @@ namespace StudGradPro.Algorithms
                     if (j > i)
                         Swap(students, i, j);
                 }
-                // At this point, the two scans have crossed each other in the center of the array and stop.
-                // The left partition and right partition contain the right groups of numbers but are not
-                // sorted themselves. The following recursive code sorts the left and right partitions.
 
                 // Swap the pivot point with the last element of the left partition.
                 Swap(students, start, j);
@@ -112,6 +110,13 @@ namespace StudGradPro.Algorithms
             return students;
         }
 
+        /// <summary>
+        /// Performs Quick sort by status.
+        /// </summary>
+        /// <param name="students">The students.</param>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <returns>Returns Sorted Students.</returns>
         public IStudent[] quickSortByStatus(IStudent[] students, int start, int end)
         {
             // index for the "left-to-right scan"
@@ -120,22 +125,18 @@ namespace StudGradPro.Algorithms
             int j = end;
 
             // only examine arrays of 2 or more elements.
-            if (j - i >= 1)            {
+            if (j - i >= 1)
+            {
                 // The pivot point of the sort method is arbitrarily set to the first element int the array.
                 String pivot = students[i].Status;
                 // only scan between the two indexes, until they meet.
                 while (j > i)
                 {
-                    // from the left, if the current element is lexicographically less than the (original)
-                    // first element in the String array, move on. Stop advancing the counter when we reach
-                    // the right or an element that is lexicographically greater than the pivot String.
                     while (students[i].Status.CompareTo(pivot) <= 0 && i < end && j > i)
                     {
                         i++;
                     }
-                    // from the right, if the current element is lexicographically greater than the (original)
-                    // first element in the String array, move on. Stop advancing the counter when we reach
-                    // the left or an element that is lexicographically less than the pivot String.
+
                     while (students[j].Status.CompareTo(pivot) >= 0 && j > start && j >= i)
                     {
                         j--;
@@ -144,9 +145,6 @@ namespace StudGradPro.Algorithms
                     if (j > i)
                         Swap(students, i, j);
                 }
-                // At this point, the two scans have crossed each other in the center of the array and stop.
-                // The left partition and right partition contain the right groups of numbers but are not
-                // sorted themselves. The following recursive code sorts the left and right partitions.
 
                 // Swap the pivot point with the last element of the left partition.
                 Swap(students, start, j);
@@ -158,6 +156,13 @@ namespace StudGradPro.Algorithms
             return students;
         }
 
+        /// <summary>
+        /// Performs Quick sort the last name.
+        /// </summary>
+        /// <param name="students">The students.</param>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <returns>Returns Sorted Students.</returns>
         public IStudent[] quickSortByLastName(IStudent[] students, int start, int end)
         {
             // index for the "left-to-right scan"
@@ -173,16 +178,11 @@ namespace StudGradPro.Algorithms
                 // only scan between the two indexes, until they meet.
                 while (j > i)
                 {
-                    // from the left, if the current element is lexicographically less than the (original)
-                    // first element in the String array, move on. Stop advancing the counter when we reach
-                    // the right or an element that is lexicographically greater than the pivot String.
                     while (students[i].LastName.CompareTo(pivot) <= 0 && i < end && j > i)
                     {
                         i++;
                     }
-                    // from the right, if the current element is lexicographically greater than the (original)
-                    // first element in the String array, move on. Stop advancing the counter when we reach
-                    // the left or an element that is lexicographically less than the pivot String.
+
                     while (students[j].LastName.CompareTo(pivot) >= 0 && j > start && j >= i)
                     {
                         j--;
@@ -191,9 +191,6 @@ namespace StudGradPro.Algorithms
                     if (j > i)
                         Swap(students, i, j);
                 }
-                // At this point, the two scans have crossed each other in the center of the array and stop.
-                // The left partition and right partition contain the right groups of numbers but are not
-                // sorted themselves. The following recursive code sorts the left and right partitions.
 
                 // Swap the pivot point with the last element of the left partition.
                 Swap(students, start, j);
@@ -206,6 +203,12 @@ namespace StudGradPro.Algorithms
             return students;
         }
 
+        /// <summary>
+        /// Swaps the specified students.
+        /// </summary>
+        /// <param name="students">The students.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
         private static void Swap(IStudent[] students, int i, int j)
         {
             var temp = students[i];

@@ -20,7 +20,7 @@ namespace StudGradPro.Data
     class StudentDataParser
     {
         /// <summary>
-        //Gets student from external JSON file
+        /// Gets the students.
         /// </summary>
         /// <returns></returns>
         public Student[] GetStudents()
@@ -36,7 +36,7 @@ namespace StudGradPro.Data
         /// <summary>
         /// Updates student from external JSON file
         /// </summary>
-        /// <param name="students"></param>
+        /// <param name="students">The students.</param>
         public void UpdateStudents(Student[] students)
         {
             using (StreamWriter w = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + @"data\students.json"))

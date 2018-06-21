@@ -15,32 +15,100 @@ namespace StudGradPro.Data
     /// <summary>
     /// Student Type
     /// </summary>
+    /// <seealso cref="StudGradPro.Data.IStudent" />
     public class Student : IStudent
     {
-        public int Id {  set; get; }
-        public string FirstName {  set; get; }
-        public string LastName {  set; get; }
-        public string Address {  set; get; }
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        public int Id { set; get; }
+
+        /// <summary>
+        /// Gets or sets the first name.
+        /// </summary>
+        /// <value>
+        /// The first name.
+        /// </value>
+        public string FirstName { set; get; }
+
+        /// <summary>
+        /// Gets or sets the last name.
+        /// </summary>
+        /// <value>
+        /// The last name.
+        /// </value>
+        public string LastName { set; get; }
+
+        /// <summary>
+        /// Gets or sets the address.
+        /// </summary>
+        /// <value>
+        /// The address.
+        /// </value>
+        public string Address { set; get; }
+
+        /// <summary>
+        /// Gets or sets the gender.
+        /// </summary>
+        /// <value>
+        /// The gender.
+        /// </value>
         public string Gender { set; get; }
+
+        /// <summary>
+        /// Gets or sets the e mail.
+        /// </summary>
+        /// <value>
+        /// The e mail.
+        /// </value>
         public string EMail { set; get; }
+
+        /// <summary>
+        /// Gets or sets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
         public string Status { set; get; }
+
+        /// <summary>
+        /// Determines whether this instance can sort.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance can sort; otherwise, <c>false</c>.
+        /// </returns>
         public bool CanSort()
         {
             return true;
         }
 
+        /// <summary>
+        /// The courses enrolled
+        /// </summary>
         public Course[] CoursesEnrolled;
 
+        /// <summary>
+        /// The sortable columns
+        /// </summary>
         public static List<string> SortableColumns = new List<string>()
         {
             "Id", "FirstName", "LastName", "Status"
         };
 
+        /// <summary>
+        /// The searchable columns
+        /// </summary>
         public static List<string> SearchableColumns = new List<string>()
         {
             "Id", "FirstName", "LastName", "Status"
         };
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Student"/> class.
+        /// </summary>
         public Student()
         {
             GradeItem item1 = new GradeItem { Id = 501, Item = "Assignment1", WeightPerc = 20.0, Feedback = "NA", Grade = 0, CourseId = 101 };
@@ -73,6 +141,6 @@ namespace StudGradPro.Data
             {
                 course1, course2
             };
-         }
+        }
     }
 }

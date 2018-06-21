@@ -1,7 +1,7 @@
 ﻿/*
  Author Name    : Karthikeyan Nagarajan & Bharath Kumar Pidapa
  
- File Name      :   Interpolation.cs
+ File Name      :   InterpolationSearch.cs
  Description    :   Class implements Interpolation Search Algorithm.           
 */
 using StudGradPro.Data;
@@ -13,14 +13,19 @@ using System.Threading.Tasks;
 
 namespace StudGradPro.Algorithms
 {
-    public  class InterpolationSearch
+    /// <summary>
+    /// Implements Interpolation Search Algorithm.
+    /// </summary>
+    public class InterpolationSearch
     {
         /// <summary>
         /// Method performs Interpolation Search of given sorted array
         /// </summary>
-        /// <param name="sortedStudents"></param>
-        /// <param name="x"></param>
-        /// <returns>location</returns>
+        /// <param name="sortedStudents">The sorted students.</param>
+        /// <param name="x">The x.</param>
+        /// <returns>
+        /// location
+        /// </returns>
         public IStudent[] SearchById(IStudent[] sortedStudents, int x)
         {
             int low, high, mid;

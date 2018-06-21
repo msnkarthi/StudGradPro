@@ -17,10 +17,30 @@ namespace StudGradPro.Data
     /// </summary>
     public class UniversityDataManager
     {
+        /// <summary>
+        /// Gets or sets the students.
+        /// </summary>
+        /// <value>
+        /// The students.
+        /// </value>
         public Student[] Students { private set; get; }
-        public Course[] AvailableCourses { private set; get; }
-        StudentDataParser studentDataParser = new StudentDataParser();
 
+        /// <summary>
+        /// Gets or sets the available courses.
+        /// </summary>
+        /// <value>
+        /// The available courses.
+        /// </value>
+        public Course[] AvailableCourses { private set; get; }
+
+        /// <summary>
+        /// The student data parser
+        /// </summary>
+        private StudentDataParser studentDataParser = new StudentDataParser();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UniversityDataManager"/> class.
+        /// </summary>
         public UniversityDataManager()
         {
             GradeItem item1 = new GradeItem { Id = 501, Item = "Assignment1", WeightPerc = 20.0, Feedback = "NA", Grade = 0, CourseId = 101 };
@@ -50,16 +70,27 @@ namespace StudGradPro.Data
             Students = studentDataParser.GetStudents();
         }
 
+        /// <summary>
+        /// Stores the students.
+        /// </summary>
         public void StoreStudents()
         {
             studentDataParser.UpdateStudents(Students);
         }
 
+        /// <summary>
+        /// Retrieves the students.
+        /// </summary>
         public void RetrieveStudents()
         {
             Students = studentDataParser.GetStudents();
         }
 
+        /// <summary>
+        /// Gets the course by identifier.
+        /// </summary>
+        /// <param name="courseId">The course identifier.</param>
+        /// <returns></returns>
         public Course GetCourseById(int courseId)
         {
             foreach (Course course in AvailableCourses)
@@ -72,6 +103,12 @@ namespace StudGradPro.Data
             return null;
         }
 
+        /// <summary>
+        /// Studentses the by course.
+        /// </summary>
+        /// <param name="Students">The students.</param>
+        /// <param name="courseId">The course identifier.</param>
+        /// <returns></returns>
         public StudentByCourse[] StudentsByCourse(List<Student> Students, int courseId)
         {
             List<StudentByCourse> studByCourses = new List<StudentByCourse>();
@@ -84,9 +121,13 @@ namespace StudGradPro.Data
             return studByCourses.ToArray();
         }
 
+        /// <summary>
+        /// Updates the student.
+        /// </summary>
+        /// <param name="studentByCourse">The student by course.</param>
+        /// <returns></returns>
         public bool UpdateStudent(StudentByCourse studentByCourse)
         {
-
             var student = Students.Where(stud => stud.Id == studentByCourse.Id).Single();
 
             if (student == null)
@@ -97,7 +138,6 @@ namespace StudGradPro.Data
             //ActiveCourse = student.CoursesEnrolled.Where(item => item.Id == courseId).Single();
 
             return true;
-
         }
     }
 }

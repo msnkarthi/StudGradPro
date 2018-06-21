@@ -108,7 +108,6 @@ namespace StudGradPro.Algorithms
         /// </summary>
         /// <param name="n"></param>
         /// <param name="H"></param>
-        /// <param name="z"></param>
         public void Sort(int n, Heap H)
         {
             MakeHeap(n, H);
@@ -116,9 +115,24 @@ namespace StudGradPro.Algorithms
         }
     }
 
+    /// <summary>
+    /// The Heap Class.
+    /// </summary>
     public class Heap
     {
+        /// <summary>
+        /// Gets or sets the sorted student.
+        /// </summary>
+        /// <value>
+        /// The sorted student.
+        /// </value>
         public StudentByCourse[] SortedStudent { set; get; }
+        /// <summary>
+        /// Gets the n.
+        /// </summary>
+        /// <value>
+        /// The n.
+        /// </value>
         public int n
         {
             get
@@ -126,6 +140,12 @@ namespace StudGradPro.Algorithms
                 return SortedStudent.Length;
             }
         }
+        /// <summary>
+        /// Gets or sets the size of the heap.
+        /// </summary>
+        /// <value>
+        /// The size of the heap.
+        /// </value>
         public int HeapSize { set; get; }
     }
 }

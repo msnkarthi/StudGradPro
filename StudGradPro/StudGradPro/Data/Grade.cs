@@ -17,8 +17,28 @@ namespace StudGradPro.Data
     /// </summary>
     public class Grade
     {
+        /// <summary>
+        /// Gets or sets the scale.
+        /// </summary>
+        /// <value>
+        /// The scale.
+        /// </value>
         public double Scale { private set; get; }
+
+        /// <summary>
+        /// Gets or sets the letter grade.
+        /// </summary>
+        /// <value>
+        /// The letter grade.
+        /// </value>
         public string LetterGrade { private set; get; }
+
+        /// <summary>
+        /// Gets or sets the total grade.
+        /// </summary>
+        /// <value>
+        /// The total grade.
+        /// </value>
         public double TotalGrade { private set; get; }
 
         /*
@@ -35,6 +55,11 @@ namespace StudGradPro.Data
         D       65-66       1.0
         F     Below 65    0.0 
         */
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Grade"/> class.
+        /// </summary>
+        /// <param name="totalGrade">The total grade.</param>
         public Grade(double totalGrade)
         {
             TotalGrade = totalGrade;
@@ -101,6 +126,9 @@ namespace StudGradPro.Data
         }
     }
 
+    /// <summary>
+    /// Enums for Letter Grade.
+    /// </summary>
     public enum LetterGrade
     {
         APlus,

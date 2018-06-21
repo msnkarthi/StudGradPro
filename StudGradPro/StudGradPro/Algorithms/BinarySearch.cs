@@ -21,9 +21,9 @@ namespace StudGradPro.Algorithms
         /// <summary>
         /// Perform Binary Search by FirstName
         /// </summary>
-        /// <param name="students"></param>
-        /// <param name="item"></param>
-        /// <returns></returns>
+        /// <param name="students">The students.</param>
+        /// <param name="item">The item.</param>
+        /// <returns>Returns Student.</returns>
         public IStudent[] SearchByFirstName(IStudent[] students, string item)
         {
             int n = students.Length - 1;
@@ -42,7 +42,7 @@ namespace StudGradPro.Algorithms
             }
             if (string.Compare(item, students[mid].FirstName) == 0)
             {
-                if(students is Student[])
+                if (students is Student[])
                 {
                     return new Student[1] { students[mid] as Student };
                 }
@@ -57,40 +57,12 @@ namespace StudGradPro.Algorithms
             }
         }
 
-        ///// <summary>
-        ///// Searches the by identifier.
-        ///// </summary>
-        ///// <param name="students">The students.</param>
-        ///// <param name="item">The item.</param>
-        ///// <returns></returns>
-        //public Student SearchById(Student[] students, int item)
-        //{
-        //    int n = students.Length - 1;
-        //    int lowerbound = 0;
-        //    int upperbound = n - 1;
-        //    int mid = (lowerbound + upperbound) / 2;
-        //    int ctr = 1;
-        //    while ((item.CompareTo(students[mid].Id) != 0) && (lowerbound <= upperbound))
-        //    {
-        //        if (item.CompareTo(students[mid].Id) > 0)
-        //            lowerbound = mid + 1;
-        //        else
-        //            upperbound = mid - 1;
-        //        mid = (lowerbound + upperbound) / 2;
-        //        ctr++;
-        //    }
-        //    if (item.CompareTo(students[mid].Id) == 0)
-        //        return students[mid];
-        //    else
-        //        return null;
-        //}
-
         /// <summary>
         /// Searches the last name of the by.
         /// </summary>
         /// <param name="students">The students.</param>
         /// <param name="item">The item.</param>
-        /// <returns></returns>
+        /// <returns>Returns Student.</returns>
         public IStudent[] SearchByLastName(IStudent[] students, string item)
         {
             int n = students.Length - 1;
@@ -129,7 +101,7 @@ namespace StudGradPro.Algorithms
         /// </summary>
         /// <param name="students">The students.</param>
         /// <param name="item">The item.</param>
-        /// <returns></returns>
+        /// <returns>Returns Student.</returns>
         public IStudent[] SearchByStatus(IStudent[] students, string item)
         {
             int n = students.Length - 1;
@@ -166,10 +138,10 @@ namespace StudGradPro.Algorithms
         /// <summary>
         /// Returns Student details within the specific Grade range
         /// </summary>
-        /// <param name="students"></param>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <returns></returns>
+        /// <param name="students">The students.</param>
+        /// <param name="from">From.</param>
+        /// <param name="to">To.</param>
+        /// <returns>Returns Student details</returns>
         public List<StudentByCourse> SearchRange(StudentByCourse[] students, int from, int to)
         {
             int startIndex = SearchNearest(from, students, true);
@@ -190,9 +162,9 @@ namespace StudGradPro.Algorithms
         /// Eg 1. Students.TotalGrade = { 78, 85, 89, 90, 91 } & isFromValue is TRUE, (from) value is 80, Method returns location as 1
         /// Eg 2. Students.TotalGrade = { 78, 85, 89, 90, 91 } & isFromValue is FALSE, (from) value is 88, Method returns location as 2
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="students"></param>
-        /// <param name="isFromValue"></param>
+        /// <param name="value">The value.</param>
+        /// <param name="students">The students.</param>
+        /// <param name="isFromValue">if set to <c>true</c> [is from value].</param>
         /// <returns></returns>
         private int SearchNearest(int value, StudentByCourse[] students, bool isFromValue)
         {

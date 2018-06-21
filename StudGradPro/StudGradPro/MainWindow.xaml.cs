@@ -26,11 +26,16 @@ namespace StudGradPro
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// <seealso cref="System.Windows.Window" />
+    /// <seealso cref="System.Windows.Markup.IComponentConnector" />
     public partial class MainWindow : Window
     {
         /// <summary>
         /// Holds instances of UniversityDataManager to retrieve and update Student record
         /// </summary>
+        /// <value>
+        /// The data manager.
+        /// </value>
         public static UniversityDataManager DataManager { private set; get; }
 
         /// <summary>
@@ -82,8 +87,8 @@ namespace StudGradPro
         /// <summary>
         /// Load Datagrid with Students record
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)
         {
             gridStudents.ItemsSource = Students;
@@ -92,8 +97,8 @@ namespace StudGradPro
         /// <summary>
         /// Disable Default Sorting functionality of DataGrid
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DataGridSortingEventArgs"/> instance containing the event data.</param>
         private void DataGrid_Sorting(object sender, DataGridSortingEventArgs e)
         {
             e.Handled = true;
@@ -102,8 +107,8 @@ namespace StudGradPro
         /// <summary>
         /// Load dropdown for 'Sort By' option
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void cmbSortBy_Loaded(object sender, RoutedEventArgs e)
         {
             cmbSortBy.ItemsSource = Student.SortableColumns;
@@ -112,8 +117,8 @@ namespace StudGradPro
         /// <summary>
         /// Invoke appropriate Sort algorithm on selection of 'Sort By' option
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void cmbSortBy_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string selectedColumn = (sender as ComboBox).SelectedItem as string;
@@ -129,7 +134,6 @@ namespace StudGradPro
                 else if (selectedColumn == "LastName")
                 {
                     ResultedStudent = quickSort.quickSortByLastName(StudentArray, 0, StudentArray.Length - 1);
-
                 }
                 else if (selectedColumn == "Status")
                 {
@@ -164,7 +168,6 @@ namespace StudGradPro
                     else if (selectedColumn == "LastName")
                     {
                         ResultedStudent = quickSort.quickSortByLastName(studByCourses, 0, StudentArray.Length - 1);
-
                     }
                     else if (selectedColumn == "Status")
                     {
@@ -183,8 +186,8 @@ namespace StudGradPro
         /// <summary>
         /// Load dropdown for 'Search By' option
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void cmbSearchBy_Loaded(object sender, RoutedEventArgs e)
         {
             cmbSearchBy.ItemsSource = Student.SearchableColumns;
@@ -193,8 +196,8 @@ namespace StudGradPro
         /// <summary>
         /// Load available courses to Course dropdown control
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void cmbCourse_Loaded(object sender, RoutedEventArgs e)
         {
             cmbCourse.ItemsSource = DataManager.AvailableCourses;
@@ -203,8 +206,8 @@ namespace StudGradPro
         /// <summary>
         /// Load approriate Students record on selection of Course
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void cmbCourse_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedCourse = (sender as ComboBox).SelectedItem as Course;
@@ -217,8 +220,8 @@ namespace StudGradPro
         /// <summary>
         /// On Search Button Click
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             var selectedColumn = cmbSearchBy.SelectedValue as string;
@@ -237,7 +240,6 @@ namespace StudGradPro
                 {
                     sortedStudent = quickSort.quickSortByLastName(StudentArray, 0, StudentArray.Length - 1);
                     searchResultStudents = binarySearch.SearchByLastName(sortedStudent, searchText.Text);
-
                 }
                 else if (selectedColumn == "Status")
                 {
@@ -281,7 +283,6 @@ namespace StudGradPro
                     {
                         sortedStudent = quickSort.quickSortByLastName(studByCourses, 0, StudentArray.Length - 1);
                         searchResultStudents = binarySearch.SearchByLastName(sortedStudent, searchText.Text);
-
                     }
                     else if (selectedColumn == "Status")
                     {
@@ -308,8 +309,8 @@ namespace StudGradPro
         /// <summary>
         /// On double-click in data grid
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void gridStudents_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var selectedStudent = gridStudents.SelectedItem as Student;
@@ -325,8 +326,8 @@ namespace StudGradPro
         /// <summary>
         /// Stores Student records to JSON file
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnUpdateDB_Click(object sender, RoutedEventArgs e)
         {
             if (selectedCourse != null)
@@ -340,10 +341,10 @@ namespace StudGradPro
         }
 
         /// <summary>
-        /// Invoke Filter & update result in datagrid
+        /// Handles the Click event of the btnFilter control.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnFilter_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -397,8 +398,8 @@ namespace StudGradPro
         /// <summary>
         /// Clear results in data grid
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
             if (selectedCourse != null)
