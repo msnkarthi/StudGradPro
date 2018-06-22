@@ -1,5 +1,5 @@
 ﻿/*
- Student Name   : Karthikeyan Nagarajan; # 227516
+ Authors Name   : Karthikeyan Nagarajan & Bharath Kumar Pidapa
  
  File Name      :   Stack.cs
  Description    :   Stack class implements the functionality of stack - Last In First Out(LIFO).
