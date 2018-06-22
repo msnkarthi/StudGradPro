@@ -60,6 +60,7 @@
     <Compile Include="Algorithms\BinarySearch.cs" />
     <Compile Include="Algorithms\InterpolationSearch.cs" />
     <Compile Include="Algorithms\Quicksort.cs" />
+    <Compile Include="Algorithms\Stack.cs" />
     <Compile Include="Data\Course.cs" />
     <Compile Include="Data\DataManager.cs" />
     <Compile Include="Data\Grade.cs" />

@@ -61,7 +61,7 @@
             Width="100"
             Loaded="cmbSortBy_Loaded"
             SelectionChanged="cmbSortBy_SelectionChanged" x:Name="cmbSortBy"/>
-
+                        <CheckBox x:Name="chkDesc" Width="50" VerticalAlignment="Center" Margin="3">Desc</CheckBox>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
                         <Label>Search By</Label>

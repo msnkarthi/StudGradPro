@@ -155,6 +155,26 @@ namespace StudGradPro
                 }
                 gridStudents.ItemsSource = null;
 
+                if(chkDesc.IsChecked.Value)
+                {
+                    Stack stackToReverse = new Stack(typeof(Student), ResultedStudent.Length);
+
+                    foreach(Student stud in ResultedStudent)
+                    {
+                        stackToReverse.Push(stud);
+                    }
+
+                    List<Student> reverse = new List<Student>();
+
+                    while(!stackToReverse.IsEmpty)
+                    {
+                        reverse.Add(stackToReverse.Pop() as Student);
+                    }
+
+                    gridStudents.ItemsSource = reverse;
+                    return;
+                }
+
                 gridStudents.ItemsSource = ResultedStudent as Student[];
                 return;
             }
@@ -166,6 +186,27 @@ namespace StudGradPro
                 {
                     Heap heap = new Heap() { HeapSize = studByCourses.Length, SortedStudent = studByCourses };
                     heapSort.Sort(studByCourses.Length, heap);
+
+
+                    if (chkDesc.IsChecked.Value)
+                    {
+                        Stack stackToReverse = new Stack(typeof(StudentByCourse), studByCourses.Length);
+
+                        foreach (StudentByCourse stud in studByCourses)
+                        {
+                            stackToReverse.Push(stud);
+                        }
+
+                        List<StudentByCourse> reverse = new List<StudentByCourse>();
+
+                        while (!stackToReverse.IsEmpty)
+                        {
+                            reverse.Add(stackToReverse.Pop() as StudentByCourse);
+                        }
+
+                        gridStudents.ItemsSource = reverse;
+                        return;
+                    }
 
                     gridStudents.ItemsSource = studByCourses;
                 }
@@ -192,13 +233,31 @@ namespace StudGradPro
                     }
                     else
                     {
-                        
-
                         Stopwatch stopWatch = new Stopwatch();
                         stopWatch.Start();
                         ResultedStudent = quickSort.quickSortById(studByCourses, 0, studByCourses.Length - 1);
                         stopWatch.Stop();
                         Debug.WriteLine("Quick Sort Execution time is {0} for Array of Length {1} ", stopWatch.Elapsed, StudentArray.Length);
+                    }
+
+                    if (chkDesc.IsChecked.Value)
+                    {
+                        Stack stackToReverse = new Stack(typeof(StudentByCourse), ResultedStudent.Length);
+
+                        foreach (StudentByCourse stud in ResultedStudent)
+                        {
+                            stackToReverse.Push(stud);
+                        }
+
+                        List<StudentByCourse> reverse = new List<StudentByCourse>();
+
+                        while (!stackToReverse.IsEmpty)
+                        {
+                            reverse.Add(stackToReverse.Pop() as StudentByCourse);
+                        }
+
+                        gridStudents.ItemsSource = reverse;
+                        return;
                     }
 
                     gridStudents.ItemsSource = ResultedStudent as StudentByCourse[];
