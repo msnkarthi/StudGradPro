@@ -7,6 +7,7 @@
 using StudGradPro.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,8 +34,9 @@ namespace StudGradPro.Algorithms
             high = sortedStudents.Length - 1;
             int location = -1;
             int denominator;
-
-            if(sortedStudents[low].Id <= x && sortedStudents[high].Id >= x)
+            int count = 0;
+            Debug.WriteLine("Interpolation Search - Input Array Length {0}", sortedStudents.Length);
+            if (sortedStudents[low].Id <= x && sortedStudents[high].Id >= x)
             {
                 while (low <= high && location == -1)
                 {
@@ -63,8 +65,10 @@ namespace StudGradPro.Algorithms
                         low = mid + 1;
                     }
 
-                    //Console.WriteLine("Iteration {0}; Mid - {1}, Low - {2}, High - {3}", ++count, mid, low, high);
+                    Debug.WriteLine("Interpolation Search - Iteration {0}; Mid - {1}, Low - {2}, High - {3}", ++count, mid, low, high);
                 }
+
+                Debug.WriteLine("Interpolation Search - Total Iteration Count - {0}", count);
             }
 
             if(location < 0)

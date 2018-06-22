@@ -7,6 +7,7 @@
 using StudGradPro.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,8 @@ namespace StudGradPro.Algorithms
             int upperbound = n - 1;
             int mid = (lowerbound + upperbound) / 2;
             int ctr = 1;
+            Debug.WriteLine("Binary Search - Input Array Length {0}", students.Length);
+
             while ((string.Compare(item, students[mid].FirstName) != 0) && (lowerbound <= upperbound))
             {
                 if (string.Compare(item, students[mid].FirstName) > 0)
@@ -39,7 +42,9 @@ namespace StudGradPro.Algorithms
                     upperbound = mid - 1;
                 mid = (lowerbound + upperbound) / 2;
                 ctr++;
+                
             }
+            Debug.WriteLine("Binary Search Number of Iterations {0}", ctr);
             if (string.Compare(item, students[mid].FirstName) == 0)
             {
                 if (students is Student[])
@@ -70,6 +75,8 @@ namespace StudGradPro.Algorithms
             int upperbound = n - 1;
             int mid = (lowerbound + upperbound) / 2;
             int ctr = 1;
+
+            Debug.WriteLine("Binary Search - Input Array Length {0}", students.Length);
             while ((string.Compare(item, students[mid].LastName) != 0) && (lowerbound <= upperbound))
             {
                 if (string.Compare(item, students[mid].LastName) > 0)
@@ -79,6 +86,8 @@ namespace StudGradPro.Algorithms
                 mid = (lowerbound + upperbound) / 2;
                 ctr++;
             }
+
+            Debug.WriteLine("Binary Search Number of Iterations {0}", ctr);
             if (string.Compare(item, students[mid].LastName) == 0)
             {
                 if (students is Student[])
@@ -109,6 +118,8 @@ namespace StudGradPro.Algorithms
             int upperbound = n - 1;
             int mid = (lowerbound + upperbound) / 2;
             int ctr = 1;
+
+            Debug.WriteLine("Binary Search - Input Array Length {0}", students.Length);
             while ((string.Compare(item, students[mid].Status) != 0) && (lowerbound <= upperbound))
             {
                 if (string.Compare(item, students[mid].Status) > 0)
@@ -118,6 +129,8 @@ namespace StudGradPro.Algorithms
                 mid = (lowerbound + upperbound) / 2;
                 ctr++;
             }
+
+            Debug.WriteLine("Binary Search - Number of Iterations {0}", ctr);
             if (string.Compare(item, students[mid].Status) == 0)
             {
                 if (students is Student[])

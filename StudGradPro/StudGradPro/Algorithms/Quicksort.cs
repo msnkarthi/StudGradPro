@@ -7,6 +7,7 @@
 using StudGradPro.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace StudGradPro.Algorithms
     /// </summary>
     public class Quicksort
     {
+        int level = 0;
+        static int swapCount = 0;
         /// <summary>
         /// Performs Quick sort by First Name.
         /// </summary>
@@ -27,6 +30,7 @@ namespace StudGradPro.Algorithms
         /// <returns>Returns Sorted Students.</returns>
         public IStudent[] quickSortByFirstName(IStudent[] students, int start, int end)
         {
+            Debug.WriteLine("Quick Sort - Length {3}, Level {0}, Start {1}, End {2}", level++, start, end, students.Length);
             // index for the "left-to-right scan"
             int i = start;
             // index for the "right-to-left scan"
@@ -73,6 +77,7 @@ namespace StudGradPro.Algorithms
         /// <returns>Returns Sorted Students.</returns>
         public IStudent[] quickSortById(IStudent[] students, int start, int end)
         {
+            //Debug.WriteLine("Quick Sort - Length {3}, Level {0}, Start {1}, End {2}", level++, start, end, students.Length);
             // index for the "left-to-right scan"
             int i = start;
             // index for the "right-to-left scan"
@@ -211,6 +216,7 @@ namespace StudGradPro.Algorithms
         /// <param name="j">The j.</param>
         private static void Swap(IStudent[] students, int i, int j)
         {
+            //Debug.WriteLine("Swap count: {0}", ++swapCount);
             var temp = students[i];
             students[i] = students[j];
             students[j] = temp;

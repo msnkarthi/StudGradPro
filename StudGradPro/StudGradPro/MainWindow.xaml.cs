@@ -8,6 +8,7 @@ using StudGradPro.Algorithms;
 using StudGradPro.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -133,7 +134,12 @@ namespace StudGradPro
                 }
                 else if (selectedColumn == "LastName")
                 {
+                    Stopwatch stopWatch = new Stopwatch();
+                    stopWatch.Start();
+                    
                     ResultedStudent = quickSort.quickSortByLastName(StudentArray, 0, StudentArray.Length - 1);
+                    stopWatch.Stop();
+                    Debug.WriteLine("Quick Sort Execution time is {0} for Array of Length {1} ", stopWatch.Elapsed, StudentArray.Length);
                 }
                 else if (selectedColumn == "Status")
                 {
@@ -141,7 +147,11 @@ namespace StudGradPro
                 }
                 else
                 {
+                    Stopwatch stopWatch = new Stopwatch();
+                    stopWatch.Start();
                     ResultedStudent = quickSort.quickSortById(StudentArray, 0, StudentArray.Length - 1);
+                    stopWatch.Stop();
+                    Debug.WriteLine("Quick Sort Execution time is {0} for Array of Length {1} ", stopWatch.Elapsed, StudentArray.Length);
                 }
                 gridStudents.ItemsSource = null;
 
@@ -163,19 +173,32 @@ namespace StudGradPro
                 {
                     if (selectedColumn == "FirstName")
                     {
-                        ResultedStudent = quickSort.quickSortByFirstName(studByCourses, 0, StudentArray.Length - 1);
+                        ResultedStudent = quickSort.quickSortByFirstName(studByCourses, 0, studByCourses.Length - 1);
                     }
                     else if (selectedColumn == "LastName")
                     {
-                        ResultedStudent = quickSort.quickSortByLastName(studByCourses, 0, StudentArray.Length - 1);
+                        Stopwatch stopWatch = new Stopwatch();
+                        stopWatch.Start();
+
+                        ResultedStudent = quickSort.quickSortByLastName(studByCourses, 0, studByCourses.Length - 1);
+                        stopWatch.Stop();
+                        Debug.WriteLine("Quick Sort Execution time is {0} for Array of Length {1}: ", stopWatch.Elapsed, studByCourses.Length);
+
+                        
                     }
                     else if (selectedColumn == "Status")
                     {
-                        ResultedStudent = quickSort.quickSortByStatus(studByCourses, 0, StudentArray.Length - 1);
+                        ResultedStudent = quickSort.quickSortByStatus(studByCourses, 0, studByCourses.Length - 1);
                     }
                     else
                     {
-                        ResultedStudent = quickSort.quickSortById(studByCourses, 0, StudentArray.Length - 1);
+                        
+
+                        Stopwatch stopWatch = new Stopwatch();
+                        stopWatch.Start();
+                        ResultedStudent = quickSort.quickSortById(studByCourses, 0, studByCourses.Length - 1);
+                        stopWatch.Stop();
+                        Debug.WriteLine("Quick Sort Execution time is {0} for Array of Length {1} ", stopWatch.Elapsed, StudentArray.Length);
                     }
 
                     gridStudents.ItemsSource = ResultedStudent as StudentByCourse[];
@@ -238,8 +261,11 @@ namespace StudGradPro
                 }
                 else if (selectedColumn == "LastName")
                 {
+
                     sortedStudent = quickSort.quickSortByLastName(StudentArray, 0, StudentArray.Length - 1);
                     searchResultStudents = binarySearch.SearchByLastName(sortedStudent, searchText.Text);
+
+                    
                 }
                 else if (selectedColumn == "Status")
                 {
@@ -276,22 +302,22 @@ namespace StudGradPro
                 {
                     if (selectedColumn == "FirstName")
                     {
-                        sortedStudent = quickSort.quickSortByFirstName(studByCourses, 0, StudentArray.Length - 1);
+                        sortedStudent = quickSort.quickSortByFirstName(studByCourses, 0, studByCourses.Length - 1);
                         searchResultStudents = binarySearch.SearchByFirstName(sortedStudent, searchText.Text);
                     }
                     else if (selectedColumn == "LastName")
                     {
-                        sortedStudent = quickSort.quickSortByLastName(studByCourses, 0, StudentArray.Length - 1);
+                        sortedStudent = quickSort.quickSortByLastName(studByCourses, 0, studByCourses.Length - 1);
                         searchResultStudents = binarySearch.SearchByLastName(sortedStudent, searchText.Text);
                     }
                     else if (selectedColumn == "Status")
                     {
-                        sortedStudent = quickSort.quickSortByStatus(studByCourses, 0, StudentArray.Length - 1);
+                        sortedStudent = quickSort.quickSortByStatus(studByCourses, 0, studByCourses.Length - 1);
                         searchResultStudents = binarySearch.SearchByStatus(sortedStudent, searchText.Text);
                     }
                     else if(selectedColumn == "Id")
                     {
-                        sortedStudent = quickSort.quickSortById(studByCourses, 0, StudentArray.Length - 1);
+                        sortedStudent = quickSort.quickSortById(studByCourses, 0, studByCourses.Length - 1);
                         searchResultStudents = interpolationSearch.SearchById(sortedStudent, Int32.Parse(searchText.Text));
                     }
                 }

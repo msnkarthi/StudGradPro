@@ -7,6 +7,7 @@
 using StudGradPro.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -110,8 +111,13 @@ namespace StudGradPro.Algorithms
         /// <param name="H"></param>
         public void Sort(int n, Heap H)
         {
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
             MakeHeap(n, H);
             RemoveKeys(n, H, H.SortedStudent);
+            stopWatch.Stop();
+
+            Debug.WriteLine("Heap Execution time is {0} for Array of Length {1}: ", stopWatch.Elapsed, n);
         }
     }
 
