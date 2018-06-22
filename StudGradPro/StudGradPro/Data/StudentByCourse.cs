@@ -145,17 +145,18 @@ namespace StudGradPro.Data
         private double CalculateGrade(Student student, Course selectedCourse)
         {
             double totalGrade = 0;
+            
             foreach (Course course in student.CoursesEnrolled)
             {
                 if (course.Id == selectedCourse.Id)
                 {
                     foreach (GradeItem gradeItem in course.Plan)
                     {
-                        totalGrade += gradeItem.Grade;
+                        totalGrade += (gradeItem.WeightPerc / 100) * gradeItem.Grade;
                     }
                 }
             }
-            return totalGrade / selectedCourse.Plan.Length;
+            return totalGrade;
         }
     }
 }
